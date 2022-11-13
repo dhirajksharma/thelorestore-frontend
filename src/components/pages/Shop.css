@@ -1,0 +1,41 @@
+@media (min-width:415px){
+    #tinysort .dropdown-label{
+        font-size: large !important;
+    }
+
+    #tinysort{
+        font-size:large;
+    }
+}
+
+#tinysort .dropdown-label{
+    font-family: serif !important;
+    font-size: medium;
+}
+
+  
+#tinysort .arrow-down{
+    margin-bottom:2px !important;
+}
+
+#tinysort .dropdown-panel{
+    right:-3px !important;
+    left:unset;
+}
+
+@media (max-width:639px) {
+    
+    #filterdiv{
+        position: absolute;
+        top: 65px;
+        z-index: 2;
+        background-color: white;
+        border-radius: 3px;
+        padding: 8px;
+        box-shadow: 0px 0px 6px 4px rgb(0 0 0 / 5%);
+    }
+
+    #filterfix{
+        position: relative;
+    }
+}

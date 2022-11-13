@@ -1,0 +1,16 @@
+#tinydash .dropdown-label{
+    font-family: serif !important;
+    font-size: large !important;
+}
+  
+#tinydash .arrow-down{
+    margin-bottom:2px !important;
+}
+
+#tinydash .tiny-dropdown{
+    margin-top: 5px;
+}
+
+#tinydash span{
+    padding-left: 3px;
+}

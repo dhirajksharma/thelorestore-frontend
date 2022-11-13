@@ -1,0 +1,32 @@
+#tinyexplore{
+    font-size:small;
+}
+
+@media (min-width:415px){
+    #tinyexplore .dropdown-label{
+        font-size: large !important;
+    }
+
+    #tinyexplore{
+        font-size:large;
+    }
+}
+
+#tinyexplore .dropdown-label{
+    font-family: serif !important;
+    font-size: medium;
+}
+
+  
+#tinyexplore .arrow-down{
+    margin-bottom:2px !important;
+}
+
+#tinyexplore .tiny-dropdown{
+    margin-right: 18px !important;
+}
+
+#tinyexplore .dropdown-panel{
+    right:-3px !important;
+    left:unset;
+}

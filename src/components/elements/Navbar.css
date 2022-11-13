@@ -1,0 +1,16 @@
+#tinynavbar .dropdown-label{
+    font-family: serif !important;
+    font-size: large !important;
+  }
+  
+#tinynavbar .arrow-down{
+    margin-bottom:2px !important;
+}
+
+#tinynavbar .tiny-dropdown{
+    margin-right: 18px !important;
+}
+  
+#tinynavbar .dropdown-panel{
+    z-index: 2;
+}
