@@ -6,9 +6,9 @@ export const getProduct=(keyword="", currentPage=1, price=[0,10000], ratings=0, 
         dispatch({
             type:ALL_PRODUCT_REQUEST
         })
-        let link=`/api/v1/books?keyword=${keyword}&page=${currentPage}&maxprice[gte]=${price[0]}&maxprice[lte]=${price[1]}&ratings[gte]=${ratings}`;
+        let link=`${process.env.REACT_APP_BACKEND_URL}/api/v1/books?keyword=${keyword}&page=${currentPage}&maxprice[gte]=${price[0]}&maxprice[lte]=${price[1]}&ratings[gte]=${ratings}`;
         if(genre){
-            link=`/api/v1/books?keyword=${keyword}&page=${currentPage}&maxprice[gte]=${price[0]}&maxprice[lte]=${price[1]}&genre=${genre}&ratings[gte]=${ratings}`;
+            link=`${process.env.REACT_APP_BACKEND_URL}/api/v1/books?keyword=${keyword}&page=${currentPage}&maxprice[gte]=${price[0]}&maxprice[lte]=${price[1]}&genre=${genre}&ratings[gte]=${ratings}`;
         }
         
         if(sort.maxprice!==0){
@@ -42,7 +42,7 @@ export const getProductDetails=(id)=>async(dispatch)=>{
             type:PRODUCT_DETAILS_REQUEST
         })
 
-        const data=await axios.get(`/api/v1/books/${id}`);
+        const data=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/books/${id}`);
         dispatch({
             type:PRODUCT_DETAILS_SUCCESS,
             payload:data,
@@ -58,8 +58,8 @@ export const getProductDetails=(id)=>async(dispatch)=>{
 }
 
 export const addItemsToCart=(id, quantity, sellerID, sellerName, sellingPrice)=>async (dispatch)=>{
-    const {data}=await axios.get(`/api/v1/books/${id}`);
-    await axios.put('/api/v1/me/cart',
+    const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/books/${id}`);
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/me/cart`,
     {
         productID:data.product._id,
         name:data.product.title,
@@ -76,7 +76,7 @@ export const addItemsToCart=(id, quantity, sellerID, sellerName, sellingPrice)=>
 };
 
 export const reviewProduct=(id,review)=>async(dispatch)=>{
-    const {data}=await axios.post(`/api/v1/books/${id}`,review);
+    const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/books/${id}`,review);
 
     dispatch({
         type:REVIEW_PRODUCT,
@@ -86,7 +86,7 @@ export const reviewProduct=(id,review)=>async(dispatch)=>{
 export const deleteReview=(id, revid)=>async(dispatch)=>{
     
     try{
-    const {data}=await axios.delete(`/api/v1/deletereview/${id}/${revid}`)
+    const {data}=await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/deletereview/${id}/${revid}`)
 
     dispatch({
         type:DELETE_REVIEW_PRODUCT,

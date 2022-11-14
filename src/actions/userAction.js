@@ -34,6 +34,7 @@ import {
     CLEAR_CART_MSG
 } from '../constants/userConstants';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 export const login=(details)=> async (dispatch)=>{
     try {
@@ -42,10 +43,9 @@ export const login=(details)=> async (dispatch)=>{
         });
         
         const {data}=await axios.post(
-            '/api/v1/login',
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/login`,
             {email:details.email, password:details.password}
         );
-
         dispatch({
             type:LOGIN_SUCCESS,
             payload:data.user,
@@ -66,7 +66,7 @@ export const register=(details)=> async (dispatch)=>{
         });
         
         const {data}=await axios.post(
-            '/api/v1/register',
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/register`,
             {name:details.name, email:details.email, password:details.password}
         );
 
@@ -89,7 +89,7 @@ export const loadUser=()=> async (dispatch)=>{
             type:LOADING_USER_REQUEST
         });
         
-        const {data}=await axios.get('/api/v1/me');
+        const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/me`);
 
         dispatch({
             type:LOAD_USER_SUCCESS,
@@ -109,7 +109,7 @@ export const logout=()=> async (dispatch)=>{
             type:LOGOUT_REQUEST
         });
         
-        await axios.get('/api/v1/logout');
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/logout`);
 
         dispatch({
             type:LOGOUT_SUCCESS
@@ -130,7 +130,7 @@ export const updatePass=(details)=> async (dispatch)=>{
         });
         
         const {data}=await axios.put(
-            '/api/v1/password/update',
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/password/update`,
             {oldPassword:details.oldPassword, newPassword:details.newPassword, confirmPassword:details.confirmPassword}
         );
 
@@ -154,7 +154,7 @@ export const updateProfile=(details)=> async (dispatch)=>{
         });
 
         const {data}=await axios.put(
-            '/api/v1/me/update',
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/me/update`,
             {   name:details.name,
                 email:details.email,
                 phone:details.phone,
@@ -188,7 +188,7 @@ export const forgotPassword=(email)=> async (dispatch)=>{
         });
         
         const {data}=await axios.post(
-            '/api/v1/password/forgot',
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/password/forgot`,
             {email:email}
         );
 
@@ -212,7 +212,7 @@ export const resetPass=(details,token)=> async (dispatch)=>{
         });
         
         const {data}=await axios.put(
-            `/api/v1/password/reset/${token}`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/password/reset/${token}`,
             {password:details.password, confirmpassword:details.confirmpassword}
         );
 
@@ -236,7 +236,7 @@ export const addOrder=(address,cart,phone)=>async(dispatch)=>{
     }
     totalPrice=itemsPrice+shippingPrice;
     console.log('dispatching')
-    const {data}=await axios.post('/api/v1/order/new',{
+    const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/order/new`,{
         shippingInfo:{
             address:{
                 localaddress:address.localaddress,
@@ -260,7 +260,7 @@ export const loadUserOrders=()=> async (dispatch)=>{
             type:LOAD_ORDERS_REQUEST
         });
         
-        const {data}=await axios.get('/api/v1/me/orders');
+        const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/me/orders`);
 
         dispatch({
             type:LOAD_ORDERS_SUCCESS,

@@ -26,7 +26,7 @@ export const getSellerProducts=()=>async(dispatch)=>{
             type:MY_PRODUCTS_REQUEST
         })
 
-        const {data}=await axios.get('/api/v1/me/books');
+        const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/me/books`);
         dispatch({
             type:MY_PRODUCTS_SUCCESS,
             payload:data.products,
@@ -47,7 +47,7 @@ export const getSellerOrders=()=>async(dispatch)=>{
             type:MY_ORDERS_REQUEST
         })
 
-        const {data}=await axios.get('/api/v1/order/my');
+        const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/order/my`);
         dispatch({
             type:MY_ORDERS_SUCCESS,
             payload:data.sellerorders,
@@ -69,7 +69,7 @@ export const addProduct=(details)=> async (dispatch)=>{
         });
         
         const {data}=await axios.post(
-            '/api/v1/books/new',
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/books/new`,
             {
                 title:details.title,
                 maxprice:details.maxprice,
@@ -110,7 +110,7 @@ export const updateProductDetails=(details)=>async(dispatch)=>{
             type:UPDATE_PRODUCT_REQUEST
         })
         console.log(details);
-        const data=await axios.put('/api/v1/books/update', details);
+        const data=await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/books/update`, details);
         dispatch({
             type:UPDATE_PRODUCT_SUCCESS,
         })

@@ -16,7 +16,7 @@ export const getOrderDetails=(id)=>async(dispatch)=>{
             type:ORDER_DETAILS_REQUEST
         })
 
-        const {data}=await axios.get(`/api/v1/order/${id}`);
+        const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/order/${id}`);
         
         dispatch({
             type:ORDER_DETAILS_FOUND,
@@ -38,7 +38,7 @@ export const deleteOrderDetails=(id)=>async(dispatch)=>{
             type:ORDER_DELETE_REQUEST
         })
 
-        await axios.delete(`/api/v1/order/${id}`);
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/order/${id}`);
         
         dispatch({
             type:ORDER_DELETE_SUCCESS,
