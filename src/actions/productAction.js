@@ -77,7 +77,7 @@ export const addItemsToCart=(id, quantity, sellerID, sellerName, sellingPrice)=>
 
 export const reviewProduct=(id,review)=>async(dispatch)=>{
     const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/books/${id}`,review);
-
+    window.location.reload();
     dispatch({
         type:REVIEW_PRODUCT,
     });
@@ -87,7 +87,7 @@ export const deleteReview=(id, revid)=>async(dispatch)=>{
     
     try{
     const {data}=await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/deletereview/${id}/${revid}`)
-
+    window.location.reload();
     dispatch({
         type:DELETE_REVIEW_PRODUCT,
     });}catch(error){

@@ -62,13 +62,10 @@ const Productpage=()=>{
             rating:0,
             comment:""
         })
-        
-        window.location.reload();
     }
 
     const deleteReviewHandler=(rev)=>{
         dispatch(deleteReview(id,rev._id));
-        window.location.reload();
     }
 
     const loadimg=()=>{

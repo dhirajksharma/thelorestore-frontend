@@ -106,7 +106,7 @@ const User=()=>{
 
     const checkoutHandler=()=>{
         if(user.address && user.address.localaddress && user.address.pincode && user.address.state && user.address.city && user.phone){
-        fetch('/create-checkout-session',{
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
