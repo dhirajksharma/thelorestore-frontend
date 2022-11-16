@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import notfoundimg from '../../res/3371471.jpg'
 import NavContext from './NavContext.js';
-
+import Metadata from "../elements/Metadata";
 const Notfound=()=>{
-    const { navOption, setNavOption } = useContext(NavContext);
+    const { setNavOption } = useContext(NavContext);
     const navigate=useNavigate();
 
     const exploreHandler=()=>{
@@ -15,7 +15,7 @@ const Notfound=()=>{
 
     return (
         <div id="notfound" className="mx-4 sm:mx-9 h-[90vh] grid md:grid-cols-2 content-center justify-items-center md:items-center">
-
+                <Metadata title="The Lore Store | ¯\_(ツ)_/¯"/>
                 <img src={notfoundimg} alt="" className="md:w-[40vw] w-[80vw] max-w-[430px] md:max-w-none aspect-square"></img>
 
                 <div>
@@ -24,7 +24,7 @@ const Notfound=()=>{
 
                 <button
                     onClick={exploreHandler}
-                    className="border-[3px] border-slate-500 px-8 py-2 mt-5 hover:bg-gray-100 active:bg-gray-200 active:border-slate-400"
+                    className="border-[3px] border-slate-700 font-medium px-8 py-2 mt-5 hover:bg-gray-100 active:bg-gray-200 active:border-gray-300"
                     >Explore</button>
                 </div>
 

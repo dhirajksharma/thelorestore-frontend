@@ -4,8 +4,7 @@ import {ALL_PRODUCT_FAIL,
         PRODUCT_DETAILS_FAIL,
         PRODUCT_DETAILS_REQUEST,
         PRODUCT_DETAILS_SUCCESS,
-        CLEAR_ERRORS,
-        REVIEW_PRODUCT
+        CLEAR_ERRORS
     } from '../constants/productConstants'
 
 

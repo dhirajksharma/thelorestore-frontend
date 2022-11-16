@@ -24,7 +24,7 @@ const Navbar=()=>{
     }
         return(
             <div id='navbar' className="flex flex-row justify-between mx-3 sm:mx-9 mt-3 items-center">
-                <h1 className="font-serif inline mt-1">THE LORE STORE</h1>
+                <h1 className="font-serif inline mt-1 tracking-wide">THE LORE STORE</h1>
 
                 <div className="hidden sm:block">
                     <NavLink to='/' onClick={()=>{setNavOption(0);sessionStorage.setItem('NavOption',0);}}>

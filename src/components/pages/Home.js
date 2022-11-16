@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import homeimg from '../../res/6737457.jpg';
 import NavContext from "../elements/NavContext";
-
+import Metadata from "../elements/Metadata";
 
 const Home=()=>{
     const navigate=useNavigate();
-    const { navOption, setNavOption } = useContext(NavContext);
+    const { setNavOption } = useContext(NavContext);
 
     const exploreHandler=()=>{
         setNavOption(1);
@@ -15,6 +15,7 @@ const Home=()=>{
     }
         return(
             <div id="home" className="mx-4 sm:mx-9 h-[90vh] grid md:grid-cols-2 content-center justify-items-center md:items-center">
+                <Metadata title="The Lore Store | Home"  nav={0}/>
                 <img src={homeimg} alt="" className="md:hidden w-[80vw] max-w-[430px] aspect-square"></img>
                 
                 <div className="">
@@ -23,7 +24,7 @@ const Home=()=>{
 
                     <button
                     onClick={exploreHandler}
-                    className="border-[3px] border-slate-500 px-8 py-2 mt-5 hover:bg-gray-100 active:bg-gray-200 active:border-slate-400"
+                    className="border-[3px] border-[#f7735c] font-medium px-8 py-2 mt-5 hover:bg-red-50 active:bg-gray-100 active:border-gray-200"
                     >Explore</button>
                 </div>
                 

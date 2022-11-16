@@ -1,6 +1,16 @@
+import {ALL_PRODUCT_FAIL,
+    ALL_PRODUCT_REQUEST,
+    ALL_PRODUCT_SUCCESS,
+    PRODUCT_DETAILS_FAIL,
+    PRODUCT_DETAILS_REQUEST,
+    PRODUCT_DETAILS_SUCCESS,
+    CLEAR_ERRORS,
+    ADD_TO_CART,
+    REVIEW_PRODUCT,
+    DELETE_REVIEW_PRODUCT} from '../constants/productConstants'
 import axios from 'axios';
-import {ALL_PRODUCT_FAIL, ALL_PRODUCT_REQUEST, ALL_PRODUCT_SUCCESS,PRODUCT_DETAILS_FAIL,PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS, CLEAR_ERRORS, ADD_TO_CART, REVIEW_PRODUCT, DELETE_REVIEW_PRODUCT} from '../constants/productConstants'
-
+axios.defaults.withCredentials = true;
+    
 export const getProduct=(keyword="", currentPage=1, price=[0,10000], ratings=0, sort={maxprice:0,year:0,ratings:0}, genre)=>async(dispatch)=>{
     try{
         dispatch({

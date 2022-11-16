@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useRef } from "react";
 import { useEffect, useState } from "react";
 import Product from "../elements/Product";
 import { getProduct } from "../../actions/productAction";
@@ -7,16 +7,21 @@ import Pagination from 'react-js-pagination';
 import Loader from "../elements/Loader";
 import TinyDropdown from '../elements/TinyDropdown';
 import './Explore.css';
+import Metadata from "../elements/Metadata";
+import { toast } from "react-toastify";
+import NavContext from "../elements/NavContext";
 const Explore=()=>{
     const dispatch=useDispatch();
-    const {product, loading, error, productsCount, resultPerPage, filteredProductCount}=useSelector(state=>state.products)
+    const {product, loading, productsCount, resultPerPage, filteredProductCount}=useSelector(state=>state.products)
     const [currentPage, setCurrentPage]=useState(1);
+    const {serverError}=useContext(NavContext);
+
     const setCurrentPageNo=(e)=>{
         setCurrentPage(e)
     }
     const [genre, setGenre]=useState("");
 
-    const options=['All','Arts and Entertainment','Biographies and Memoirs','Business and Investing','Children\'s Books','Comics','Computer and Technology','Cookery, Food and Wine','Engineering','Fiction and Literature','Study Aids','Health, Mind and Body','History','Religion and Spirituality','Romance','Self Help'];
+    const options=['All','Arts and Entertainment','Biographies and Memoirs','Business and Investing','Comics','Computer and Technology','Cookery, Food and Wine','Fiction and Literature','Health, Mind and Body','Religion and Spirituality'];
     const [optionSelected,setOptionSelected]=useState(0);
     useEffect(()=>{
         dispatch(getProduct("",currentPage,[0,25000],0,{maxprice:0,year:0,ratings:0},genre));
@@ -40,19 +45,43 @@ const Explore=()=>{
 
     const generateOptions=()=>
     {
-        return ['All','Arts and Entertainment','Biographies and Memoirs','Business and Investing','Children\'s Books','Comics','Computer and Technology','Cookery, Food and Wine','Engineering','Fiction and Literature','Study Aids','Health, Mind and Body','History','Religion and Spirituality','Romance','Self Help'].map( genre => (
+        return ['All','Arts and Entertainment','Biographies and Memoirs','Business and Investing','Comics','Computer and Technology','Cookery, Food and Wine','Fiction and Literature','Health, Mind and Body','Religion and Spirituality'].map( genre => (
             <button className="block font-serif text-left font-light mb-3 w-fit" onClick={handleGenre}>{genre}</button>
         ));
     }
-    
+    const loadRef=useRef(loading);
+    loadRef.current=loading;
+    const serverRef=useRef(serverError);
+    serverRef.current=serverError;
+
+    const traffcheck=()=>{
+        setTimeout(()=>{
+            if(loadRef.current===true && serverRef.current!==1)
+                toast('Boy! It\'s taking longer than usual. Bangalore traffic I guess 😅😅', {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"traffcheck"
+                });
+        },8000)
+    }
         return(
             <div id="explore" className="mx-4 sm:mx-9">
+            <Metadata title="The Lore Store | Explore"  nav={1}/>
                 {loading ?(
-                <Loader/>
+                        <Fragment>
+                        <Loader/>
+                        {traffcheck()}
+                        </Fragment>
             ):(
             <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 w-1/3 pb-1 col-start-1 col-end-3">Browse Genres</h1>                
+                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Browse Genres</h1>                
                 
                 <div className="hidden sm:flex flex-col pl-1">
                     {generateOptions()}

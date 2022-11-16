@@ -1,5 +1,5 @@
-import { createContext, useMemo, useState } from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
 import Home from './components/pages/Home';
 import Shop from './components/pages/Shop';
 import Navbar from './components/elements/Navbar';
@@ -15,7 +15,7 @@ import Checkoutsuccess from './components/pages/Checkoutsuccess';
 import Checkoutfail from './components/pages/Checkoutfail';
 import Dashboard from './components/pages/Dashboard';
 import { useDispatch } from 'react-redux';
-import {ToastContainer, Flip, Zoom} from 'react-toastify';
+import {ToastContainer, Flip, toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Order from './components/pages/Orders';
 import Notfound from './components/elements/Notfound';
@@ -29,16 +29,43 @@ function App() {
   dispatch(getSellerOrders());
   
   const [navOption, setNavOption] = useState(sessionStorage.getItem('NavOption')||0);
+  const [serverError, setServerError]=useState(0);
+
   const value = useMemo(
-    () => ({ navOption, setNavOption }), 
-    [navOption]
+    () => ({ navOption, setNavOption, serverError }), 
+    [navOption, serverError]
   );
 
+  function checkserver(){
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/health`)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not OK');
+    }
+  })
+  .catch((error) => {
+    toast('Woops! The server is not working... Kindly revisit after sometime 😢😢', {
+      position: "top-center",
+      autoClose: 3500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      toastId:"traffcheck"
+      });
+    setServerError(1);
+  });
+
+  }
+  useEffect(()=>{
+    checkserver();
+  })
   return (
     <NavContext.Provider value={value}>
     <div>
       <Navbar/>
-
       <div>
       <Routes>
         <Route path='/' element={<Home/>}></Route>

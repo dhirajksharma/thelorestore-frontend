@@ -1,33 +1,43 @@
-import React, { Fragment, useReducer, useState } from "react";
+import React, { Fragment, useContext, useRef, useState } from "react";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { deleteReview, getProductDetails, reviewProduct } from "../../actions/productAction";
 import {useSelector, useDispatch} from 'react-redux';
 import Loader from "../elements/Loader";
-import Review from "../elements/Review";
 import { addItemsToCart } from "../../actions/productAction";
 import { toast } from "react-toastify";
 import { clearCartMsg } from "../../actions/userAction";
 import Notfound from '../elements/Notfound';
-
+import Metadata from "../elements/Metadata";
+import NavContext from "../elements/NavContext";
 const Productpage=()=>{
     const dispatch=useDispatch();
-    const navigate=useNavigate();
     const {id}=useParams();
-    const {product, loading, error}=useSelector(state=>state.productDetails)
+    const {product, loading}=useSelector(state=>state.productDetails)
     const {user, cartSuccess}=useSelector(state=>state.user)
     const [review, setReview]=useState({
         rating:0,
         comment:""
     })
     
+    const {serverError}=useContext(NavContext);
     const [addReview, setAddReview]=useState(0);
 
     useEffect(()=>{
         dispatch(getProductDetails(id));
         
         if(cartSuccess){
-            toast.success("Item added to your cart");
+            toast.success("Item added to your cart", {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"success"
+                });
             dispatch(clearCartMsg());
         }
     },[dispatch, id, cartSuccess]);
@@ -51,7 +61,17 @@ const Productpage=()=>{
             dispatch(addItemsToCart(id,Number(e.target.previousElementSibling.childNodes[1].innerHTML),seller.sellerID, seller.sellerName, seller.sellingPrice))
             e.target.previousElementSibling.childNodes[1].innerHTML=1;
         }else{
-            toast.error("Login to Add book to cart");
+            toast.error("Login to Add book to cart", {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"error"
+                });
         }
     }
 
@@ -68,30 +88,66 @@ const Productpage=()=>{
         dispatch(deleteReview(id,rev._id));
     }
 
-    const loadimg=()=>{
-        document.querySelector('#prdimg');
-        console.log(document.querySelector('#prdimg'))
+    function ellipsify (str) {
+        if (window.innerWidth<400 && str.length > 180) {
+            return (str.substring(0, 180) + "...");
+        }
+        else if (window.innerWidth<450 && str.length > 250) {
+            return (str.substring(0, 250) + "...");
+        }
+        else if (window.innerWidth<500 && str.length > 300) {
+            return (str.substring(0, 300) + "...");
+        }
+        else {
+            return str;
+        }
     }
+    
+    const loadRef=useRef(loading);
+    loadRef.current=loading;
+    const serverRef=useRef(serverError);
+    serverRef.current=serverError;
 
+    const traffcheck=()=>{
+        setTimeout(()=>{
+            if(loadRef.current===true && serverRef.current!==1)
+            toast('Boy! It\'s taking longer than usual. Bangalore traffic I guess 😅😅', {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"traffcheck"
+                });
+        },8000)
+    }
     return(
         <div id="explore" className="mx:4 sm:mx-9">
-            {loading ?(
-            <Loader/>
-        ):(<div>
+        <Metadata title="The Lore Store | Book Details" nav={1}/>
+        {loading ?(
+                        <Fragment>
+                        <Loader/>
+                        {traffcheck()}
+                        </Fragment>
+            ):(
+            <div>
         {product?(
             <Fragment>
             
-            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
+            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
             <div id='prddiv' className="grid grid-cols-[auto_2fr] justify-items-center sm:ml-10 mx-2 mt-2">
             {product.image && product.image.map(obj =>{
-                return <img id="prdimg" src={obj.url} className=" w-[30vw] sm:w-48 m-2 justify-self-end aspect-ratio-[0.69] self-center"></img>
+                return <img id="prdimg" alt="product" src={obj.url} className=" w-[30vw] sm:w-48 m-2 justify-self-end aspect-ratio-[0.69] self-center"></img>
             })
             }
                 <div className="self-start justify-self-start mt-1 ml-1">
                     <h1 className="font-['Montserrat'] uppercase font-medium text-sm mt-1">{product.genre}</h1>
-                    <h1 className="font-['Roboto_Slab'] text-2xl mt-1">{product.title}</h1>
+                    <h1 className="font-['Roboto_Slab'] text-xl sm:text-2xl mt-1">{product.title}</h1>
                     <p className="font-serif">{product.author}</p>
-                    <p className="font-serif">{product.description}</p>
+                    {product.description && <p className="font-serif">{ellipsify(product.description)}</p>}
                     <p className="font-mono">{product.ratings}&#9733; [{product.numOfReviews} reviews]</p>
                     <p className="font-sans font-medium">MRP: &#8377;{product.maxprice}</p>
                     <div className="hidden sm:block">
@@ -107,7 +163,7 @@ const Productpage=()=>{
                                     <h1 className="inline text-lg">1</h1>
                                     <button className="ml-2" onClick={(e)=>{increaseQuantity(e,obj.quantity)}}>+</button>
                                 </h1>
-                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 px-2 py-2 mt-2 hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Add to Cart</button>
+                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-[#f7735c] px-2 py-2 mt-2 hover:bg-red-50 active:bg-gray-200 active:border-gray-300">Add to Cart</button>
                             </div>
                         })}
                         </div>
@@ -127,7 +183,7 @@ const Productpage=()=>{
                                     <h1 className="inline text-lg">1</h1>
                                     <button className="ml-2" onClick={(e)=>{increaseQuantity(e,obj.quantity)}}>+</button>
                                 </h1>
-                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 px-2 py-2 mt-2 hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Add to Cart</button>
+                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-[#f7735c] px-2 py-2 mt-2 hover:bg-red-50 active:bg-gray-200 active:border-gray-300">Add to Cart</button>
                             </div>
                         })}
                         </div>
@@ -161,17 +217,17 @@ const Productpage=()=>{
                         placeholder="Comment"
                         value={review.comment}
                         onChange={(e)=>setReview(review=>({...review, comment: e.target.value}))}
-                        className="block text-center border-x border-y max-w-[280px]"
+                        className="block border-x border-y max-w-[280px] mb-2"
                         rows={4}
                         cols={50}
                         ></textarea>
-                        <button type='submit'>Add Review</button>
+                        <button type='submit' className="border p-1 border-[#f7735c]">Add Review</button>
                         </form>
                     </div>}
                     <div>
                         {product.reviews && product.reviews.map(review =>(
                                 
-                                <div className="flex flex-col justify-evenly border p-2 w-[90vw] sm:w-[80vw] mb-2 mr-1">
+                                <div className="flex flex-col justify-evenly border p-2 w-[90vw] sm:w-[80vw] mb-5 mr-1">
                                     <h2 className="font-['Montserrat'] font-medium flex flex-row justify-between">
                                         {review.name}: {review.rating}&#9733;
                                         {user && (user._id===review.userId || user.role==="seller") && <button

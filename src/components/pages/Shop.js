@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useRef, useState } from "react";
 import Product from '../elements/Product';
 import Loader from '../elements/Loader';
 import { getProduct } from "../../actions/productAction";
@@ -11,11 +11,14 @@ import TinyDropdown from '../elements/TinyDropdown';
 import './Shop.css';
 import $ from 'jquery';
 import controller from '../../res/settings.png'
+import Metadata from "../elements/Metadata";
+import { toast } from "react-toastify";
+import NavContext from "../elements/NavContext";
 
 const Shop=()=>{
     const dispatch=useDispatch();
-
-    const {product, loading, error, productsCount, resultPerPage, filteredProductCount}=useSelector(state=>state.products)
+    const {serverError}=useContext(NavContext);
+    const {product, loading, productsCount, resultPerPage, filteredProductCount}=useSelector(state=>state.products)
     const [currentPage, setCurrentPage]=useState(1);
     const [state, setState] = useState({ x: 5000});
     const [colorbtn, setColorbtn]=useState(0);
@@ -103,18 +106,43 @@ const Shop=()=>{
             dib.style.display='flex';
         }
     }
+    const loadRef=useRef(loading);
+    loadRef.current=loading;
+    const serverRef=useRef(serverError);
+    serverRef.current=serverError;
 
+    const traffcheck=()=>{
+        setTimeout(()=>{
+            if(loadRef.current===true && serverRef.current!==1)
+            toast('Boy! It\'s taking longer than usual, Bangalore traffic I guess 😅😅', {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"traffcheck"
+                });
+        },8000)
+    }
     return(
         <div id="shop" className="mx-3 sm:mx-9 h-[90vh]">
-            {loading?<Loader/>:
-            (
-            <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
+            <Metadata title="The Lore Store | Shop" nav={2}/>
+            {loading ?(
+                        <Fragment>
+                        <Loader/>
+                        {traffcheck()}
+                        </Fragment>
+            ):(
+            <div className="sm:grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 w-1/3 pb-1 col-start-1 col-end-3">Checkout Store</h1>
+                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Checkout Store</h1>
                     <div className="flex flex-col pl-1 items-center sm:items-start">
                         <div id='filterfix' className="flex flex-row justify-center sm:justify-start items-center">
                             <Search/>
-                            <img src={controller} className="cursor-pointer sm:hidden ml-2 h-5 mt-4" onClick={togglefilterdiv}/>
+                            <img src={controller} alt="filters" className="cursor-pointer sm:hidden ml-2 h-5 mt-4" onClick={togglefilterdiv}/>
                         </div>
 
                         <div id='filterdiv' className="font-serif mt-7 hidden sm:flex flex-col items-center sm:items-start w-fit sm:w-auto">
@@ -183,7 +211,7 @@ const Shop=()=>{
                         </div>
                     </div>
 
-                    <div className="prd_display">
+                    <div className="prd_display mt-2 sm:mt-0">
                         {product && product.map(prod =>(
                             <Product product={prod}/>
                         ))}

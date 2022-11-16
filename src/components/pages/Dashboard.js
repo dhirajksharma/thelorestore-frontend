@@ -1,19 +1,21 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { addProduct, clearErrors, clearPrdSuccess, getSellerProducts, updateProductDetails,getSellerOrders } from '../../actions/dashboardAction';
+import { Link} from 'react-router-dom';
+import { addProduct, clearErrors, clearPrdSuccess, getSellerProducts, updateProductDetails} from '../../actions/dashboardAction';
 import Loader from '../elements/Loader';
-import { loadUser,loadUserOrders } from '../../actions/userAction';
 import TinyDropdown from '../elements/TinyDropdown';
 import {toast} from 'react-toastify';
 import Notfound from '../elements/Notfound';
 import './Dashboard.css';
+import Metadata from "../elements/Metadata";
+import NavContext from '../elements/NavContext';
+
 const Dashboard=()=>{
 
-    const navigate=useNavigate();
     const dispatch=useDispatch();
     const {products, orders, loading, error, productSuccess, productsLoading, ordersLoading}=useSelector(state=> state.dashboard)
     const {user}=useSelector(state=>state.user);
+    const {serverError}=useContext(NavContext);
     const [option, setOption]=useState('My Products')
     const [optionSelected,setOptionSelected]=useState(0);
     const [newBookDetails, setNewBookDetails]=useState(
@@ -40,11 +42,31 @@ const Dashboard=()=>{
     useEffect(()=>{
         
         if(error){
-            toast.error(error);
+            toast.error(error, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"error"
+                });
             dispatch(clearErrors());
         }
         if(productSuccess){
-            toast.success("Update Successful");
+            toast.success("Update Successful", {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"success"
+                });
             setNewBookDetails({
                 title:"",
                 maxprice:"",
@@ -97,21 +119,47 @@ const Dashboard=()=>{
 
     const generateOptions=()=>
     {
-        return ['Arts and Entertainment','Biographies and Memoirs','Business and Investing','Children\'s Books','Comics','Computer and Technology','Cookery, Food and Wine','Engineering','Fiction and Literature','Study Aids','Health, Mind and Body','History','Religion and Spirituality','Romance','Self Help'].map( genre => (
+        
+        return ['Arts and Entertainment','Biographies and Memoirs','Business and Investing','Comics','Computer and Technology','Cookery, Food and Wine','Fiction and Literature','Health, Mind and Body','Religion and Spirituality'].map( genre => (
             <option value={genre}>{genre}</option>
         ));
     }
+    
+    const loadRef=useRef(loading);
+    loadRef.current=loading;
+    const serverRef=useRef(serverError);
+    serverRef.current=serverError;
 
+    const traffcheck=()=>{
+        setTimeout(()=>{
+            if(loadRef.current===true && serverRef.current!==1)
+            toast('Boy! It\'s taking longer than usual. Bangalore traffic I guess 😅😅', {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"traffcheck"
+                });
+        },8000)
+    }
     return(
         <div className=''>
+        <Metadata title="The Lore Store | Seller Dashboard"  nav={3}/>
         {loading===true || productsLoading===true || ordersLoading===true?(
-            <Loader/>
+                    <Fragment>
+                    <Loader/>
+                    {traffcheck()}
+                    </Fragment>
             ):(<div>
                 {user.role==="seller"?(
             <Fragment>
             <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 w-1/3 pb-1 col-start-1 col-end-3">Seller Dashboard</h1>
+            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Seller Dashboard</h1>
 
             <div id='tinydash' className='sm:hidden'>
                 <TinyDropdown
@@ -157,7 +205,7 @@ const Dashboard=()=>{
                     {products.map(obj=>{
                         return <Link to={`/books/${obj._id}`}>
                         <div className='grid grid-cols-[auto_1fr] grid-rows-1 items-center justify-items-start mb-4'>
-                            <img src={obj.image[0].url} className='h-[150px] aspect-ratio-[0.69]'/>
+                            <img src={obj.image[0].url} alt="product" className='h-[150px] aspect-ratio-[0.69]'/>
                             <div className='font-serif ml-3'>
                                 <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Book:</h1> {obj.title}</h1>
                                 <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>ISBN:</h1> {obj.isbn}</h1>
@@ -209,7 +257,7 @@ const Dashboard=()=>{
                         placeholder="Write a description for the book..."
                         value={newBookDetails.description}
                         onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, description: e.target.value}))}
-                        className="block text-center border-x border-y min-w-[250px] w-[30vw]"
+                        className="block font-serif border-x border-y min-w-[250px] w-[30vw]"
                         rows={4}
                         ></textarea>
                         
@@ -280,7 +328,7 @@ const Dashboard=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
                             onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, image: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-gray-800 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200 active:border-gray-300'>Add Book</button>
+                        <button type='submit' className='border-2 py-1 px-2 border-[#f7735c] block mt-4 mb-5 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200 active:border-gray-300'>Add Book</button>
                     </form>
                 </Fragment>)}
 
@@ -324,7 +372,7 @@ const Dashboard=()=>{
                         placeholder="Write a description for the book..."
                         value={updateBookDetails.description}
                         onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, description: e.target.value}))}
-                        className="block text-center border-x border-y min-w-[250px] w-[30vw]"
+                        className="block font-serif border-x border-y min-w-[250px] w-[30vw]"
                         rows={4}
                         ></textarea>
 
@@ -381,7 +429,7 @@ const Dashboard=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
                             onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, image: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-gray-800 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200 active:border-gray-300'>Update Book</button>
+                        <button type='submit' className='border-2 p-1 border-[#f7735c] block mt-4 mb-5 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200 active:border-gray-300'>Update Book</button>
                     </form>
                 </Fragment>)}
 

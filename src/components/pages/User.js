@@ -1,4 +1,4 @@
-import {Fragment, React, useEffect, useState, useContext } from 'react';
+import {Fragment, React, useEffect, useState, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSellerOrders, getSellerProducts } from '../../actions/dashboardAction';
@@ -8,11 +8,12 @@ import {toast} from 'react-toastify';
 import TinyDropdown from '../elements/TinyDropdown';
 import './User.css';
 import NavContext from "../elements/NavContext";
+import Metadata from "../elements/Metadata";
 
 const User=()=>{
     const navigate=useNavigate();
     const dispatch=useDispatch();
-    const { navOption, setNavOption } = useContext(NavContext);
+    const { serverError, setNavOption } = useContext(NavContext);
     const {user, orders, isAuthenticated, loading, error, updateSuccess}=useSelector(state=> state.user)
     const [option, setOption]=useState('Profile')
     const taboptions=['Profile','Cart','Orders','Edit Profile','Edit Password'];
@@ -55,12 +56,33 @@ const User=()=>{
         })
 
         if(error){
-            toast.error(error);
+            toast.error(error, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"error"
+                });
             dispatch(clearErrors());
         }
         if(updateSuccess){
-            toast.success("Update Succeful!");
+            toast.success("Update Succeful!", {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"success"
+                });
             dispatch(clearSuccess());
+            setPassDetails({oldPassword:"", newPassword:"", confirmPassword:""});
         }
     },[dispatch,error,updateSuccess, isAuthenticated]);
 
@@ -123,19 +145,52 @@ const User=()=>{
             console.error(e.error)
         })}
         else{
-            toast.error("Complete your profile before making a purchase");
+            toast.error("Complete your profile before making a purchase", {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"error"
+                });
         }
     }
-    
+    const loadRef=useRef(loading);
+    loadRef.current=loading;
+    const serverRef=useRef(serverError);
+    serverRef.current=serverError;
+
+    const traffcheck=()=>{
+        setTimeout(()=>{
+            if(loadRef.current===true && serverRef.current!==1)
+            toast('Boy! It\'s taking longer than usual. Bangalore traffic I guess 😅😅', {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"traffcheck"
+                });
+        },8000)
+    }
     return(
-        <div>
-            {loading===true?(
-                <Loader/>
+        <div><Metadata title="The Lore Store | User Profile" nav={3}/>
+            {loading ?(
+                        <Fragment>
+                        <Loader/>
+                        {traffcheck()}
+                        </Fragment>
             ):(
         <Fragment>
         <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-        <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 w-1/3 pb-1 col-start-1 col-end-3">User Info</h1>                
+        <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">User Info</h1>                
 
         <div id='tinyuser' className='sm:hidden'>
         <TinyDropdown
@@ -217,7 +272,7 @@ const User=()=>{
                 </Fragment>}
                 <button
                 onClick={logoutHandler}
-                className='border-[3px] border-red-600 p-1 mb-6 mt-6 rounded-md font-["Montserrat"] font-medium sm:hidden'>
+                className='border-2 border-red-600 px-2 py-1 mb-6 mt-6 font-["Montserrat"] font-medium sm:hidden'>
                 Logout</button>
                 </Fragment>)}
 
@@ -291,7 +346,7 @@ const User=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, address:{...profileDetails.address, state: e.target.value}}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-gray-800 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200'>Update Profile</button>
+                        <button type='submit' className='border-2 p-1 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Profile</button>
                     </form>
                 </Fragment>)}
 
@@ -324,7 +379,7 @@ const User=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
                             onChange={(e)=>setPassDetails(passdetails=>({...passdetails, confirmPassword: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-gray-800 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200'>Update Password</button>
+                        <button type='submit' className='border-2 p-1 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Password</button>
                     </form>
                 </Fragment>)}
 
@@ -334,7 +389,7 @@ const User=()=>{
                         cost+=obj.quantity*obj.price;
                         return <Link to={`/books/${obj.productID}`}>
                         <div className='grid grid-cols-[auto_1fr] grid-rows-1 items-center justify-items-start mb-4'>
-                            <img src={obj.image} className='h-[150px] aspect-ratio-[0.69]'/>
+                            <img src={obj.image} alt="product" className='h-[150px] aspect-ratio-[0.69]'/>
                             <div className='font-serif ml-3'>
                                 <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Book:</h1> {obj.name}</h1>
                                 <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Seller:</h1> {obj.sellerName}</h1>
@@ -346,14 +401,14 @@ const User=()=>{
                         </Link>
                     })
                     }</div>
-                    {user.cart.length>0?(<Fragment><div className='flex flex-row justify-between border-t mb-4 pt-4'>
+                    {user.cart.length>0?(<Fragment><div className='flex flex-row justify-between border-t mb-4 pt-4 border-red-300'>
                         <h1 className='font-["Montserrat"] text-lg font-medium inline self-center'>
                         Total Cost of Cart: &#8377;{cost}
                         </h1>
-                        <button onClick={checkoutHandler} className="font-serif border-2 p-1 h-fit self-center hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Check Out</button>
+                        <button onClick={checkoutHandler} className="font-medium font-['Montserrat'] border-2 p-1 h-fit self-center border-[#f7735c] hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Check Out</button>
                     </div>
-                    <h1 className='font-["Roboto_Slab"] font-medium mb-5 text-gray-500 text-center text-sm sm:text-base'>
-                            Disclaimer: This site has been developed for academic purposes, we do not sell books. Do not use real payment methods at the payment gateway. If any money is lost, the owner of the site, shall not be held liable for the same.
+                    <h1 className='font-["Roboto_Slab"] font-medium mt-7 mb-5 text-gray-500 text-center text-sm sm:text-base'>
+                            <p className='inline text-black'>Disclaimer:</p> This site has been developed for academic purposes, we do not sell books. Do not use real payment methods at the payment gateway. If any money is lost, the owner of the site, shall not be held liable for the same.
                     </h1>
                     </Fragment>):(
                         <div className='w-[90vw] sm:w-auto font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>

@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# The Lore Store (Frontend)
+The Lore Store is an online bookstore, this repository holds the code for the frontend of the same. I have taken a minimal approach towards the User Interface, built using **React.js** and styled with **TailwindCSS** This is the repository for the [backend](https://github.com/dhirajksharma/thelorestore-backend) for the project. ) of the application.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features Available Now
 
-## Available Scripts
+Some of the prominent features of the site include:
 
-In the project directory, you can run:
+a) General features available to all users
+- Search a book in the store.
+- Filter the results based on price, reviews, date of arrival, etc.
+- Explore different genres available.
+- Edit their profile information like name, email, address, etc.
+- Edit their passwords, reset forgotten passwords with email.
+- Compare different sellers and choose which one to buy from.
+- Add, remove and/or update reviews for books.
+- Add books to cart for later purchase.
+- Check out with payment at Stripe's payment gateway.
+- Check order details, cancel undelivered orders.
 
-### `npm start`
+b) Seller exclusive features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Add new to their catalogue.
+- Update existing books in their catalogue.
+- Check orders received from various buyers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Future Prospects
 
-### `npm test`
+I have a couple of updates in mind for the site, which all of you are welcome to contribute to, or maybe even add new ones . . .
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Wish list for Users to add or remove books from.
+- Social page for Users to share their reads with others.
+- Sales statistics for Sellers at their dashboard.
+- Dedicated pages for Sellers to host sales or launch events.
+- A new section of users: delivery partners, and various functionalities associated with them, for instance, receiving orders for delivery, order tracking functionality for the user.
+- Feel free to add more 😁😁

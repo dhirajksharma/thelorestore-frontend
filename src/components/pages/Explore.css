@@ -1,11 +1,9 @@
 #tinyexplore{
     font-size:small;
+    margin-left:-4px;
 }
 
 @media (min-width:415px){
-    #tinyexplore .dropdown-label{
-        font-size: large !important;
-    }
 
     #tinyexplore{
         font-size:large;
@@ -29,4 +27,8 @@
 #tinyexplore .dropdown-panel{
     right:-3px !important;
     left:unset;
+}
+
+#tinyexplore .dropdown-menu{
+    padding: 0 !important;
 }

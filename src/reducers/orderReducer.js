@@ -4,7 +4,6 @@ import {CLEAR_DELETE_MSG,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_FOUND,
     ORDER_DELETE_FAIL,
-    ORDER_DELETE_REQUEST,
     ORDER_DELETE_SUCCESS
 } 
 from '../constants/orderConstants'

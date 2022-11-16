@@ -1,9 +1,11 @@
 import Loader from "../elements/Loader";
-import { React, Fragment, useState, useEffect } from "react";
+import { React, Fragment, useState, useEffect, useRef, useContext } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { login, register, clearErrors } from "../../actions/userAction";
 import {toast} from 'react-toastify';
+import Metadata from "../elements/Metadata";
+import NavContext from "../elements/NavContext";
 
 const Logon = ()=>{
     
@@ -12,14 +14,25 @@ const Logon = ()=>{
     const [logindetails, setLoginDetails]=useState({email:"", password:""});
     const [registerdetails, setRegisterDetails]=useState({name:"", email:"", password:""});
     const dispatch=useDispatch();
-    const {user,loading, isAuthenticated, error}=useSelector(state=> state.user)
+    const {loading, isAuthenticated, error}=useSelector(state=> state.user)
     const [colorbtn, setColorBtn]=useState(1);
+    const {serverError}=useContext(NavContext);
 
     useEffect(()=>{
         if(loading===false && isAuthenticated===true)
             navigate('/me')
         if(error){
-            toast.error(error);
+            toast.error(error, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                toastId:"error"
+                });
             dispatch(clearErrors());
         }
     },[error, isAuthenticated, loading])
@@ -45,11 +58,36 @@ const Logon = ()=>{
         }
         setFormType(formType => e.target.value)
     }
+    
+    const loadRef=useRef(loading);
+    loadRef.current=loading;
+    const serverRef=useRef(serverError);
+    serverRef.current=serverError;
 
+    const traffcheck=()=>{
+        setTimeout(()=>{
+            if(loadRef.current===true && serverRef.current!==1)
+            toast('Boy! It\'s taking longer than usual. Bangalore traffic I guess 😅😅', {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"traffcheck"
+                });
+        },8000)
+    }
     return(
         <div id="logon" className="mx-4 sm:mx-9 h-[90vh] flex items-center justify-center">
-                {loading ?(
-                <Loader/>
+            <Metadata title="The Lore Store | Sign In/Up" nav={3}/>
+            {loading ?(
+                        <Fragment>
+                        <Loader/>
+                        {traffcheck()}
+                        </Fragment>
             ):(
             <div className="grid grid-cols-2 font-serif min-h-[300px] min-w-[250px] items-start">
                 {colorbtn===1 && <button
@@ -93,7 +131,7 @@ const Logon = ()=>{
                                     onChange={(e)=>setLoginDetails(logindetails=>({...logindetails, password: e.target.value}))}
                                     className="block text-center mb-2 tracking-wider border-b"
                                 />
-                                <button type='submit' className="tracking-wider mt-4 border-2 border-gray-500 hover:bg-gray-100 active:bg-gray-200 active-bg-gray-300">Login</button>
+                                <button type='submit' className="tracking-wider mt-4 border-2 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Login</button>
                             </form>
                         </div>
                     ):(
@@ -126,7 +164,7 @@ const Logon = ()=>{
                                     onChange={(e)=>setRegisterDetails(registerdetails=>({...registerdetails, password: e.target.value}))}
                                     className="block text-center mb-4 tracking-wider border-b"
                                 />
-                                <button type='submit' className="tracking-wider mt-4 border-2 border-gray-500 hover:bg-gray-100 active:bg-gray-200 active-bg-gray-300">Register</button>
+                                <button type='submit' className="tracking-wider mt-4 border-2 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Register</button>
                             </form>
                         
                     )}

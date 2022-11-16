@@ -18,6 +18,7 @@ import {
     UPDATE_PRODUCT_SUCCESS
    } from '../constants/dashboardConstants'
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 export const getSellerProducts=()=>async(dispatch)=>{
     try{
