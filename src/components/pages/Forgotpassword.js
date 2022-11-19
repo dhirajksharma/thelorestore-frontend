@@ -36,7 +36,7 @@ const Forgotpassword=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('Boy! It\'s taking longer than usual. Bangalore traffic I guess 😅😅', {
+            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,

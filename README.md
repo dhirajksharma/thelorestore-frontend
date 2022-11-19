@@ -1,5 +1,5 @@
 # The Lore Store (Frontend)
-The Lore Store is an online bookstore, this repository holds the code for the frontend of the same. I have taken a minimal approach towards the User Interface, built using **React.js** and styled with **TailwindCSS** This is the repository for the [backend](https://github.com/dhirajksharma/thelorestore-backend) for the project. ) of the application.
+The Lore Store is an online bookstore, this repository holds the code for the frontend of the same. I have taken a minimal approach towards the User Interface, built using **React.js** and styled with **TailwindCSS** This is the repository for the [backend](https://github.com/dhirajksharma/thelorestore-backend) for the project of the application.
 
 ## Features Available Now
 
@@ -33,3 +33,11 @@ I have a couple of updates in mind for the site, which all of you are welcome to
 - Dedicated pages for Sellers to host sales or launch events.
 - A new section of users: delivery partners, and various functionalities associated with them, for instance, receiving orders for delivery, order tracking functionality for the user.
 - Feel free to add more 😁😁
+
+## Environment Variables
+
+Below is the list of environment variables required for the frontend:
+
+- REACT_APP_BACKEND_URL
+
+> **Note:** Using React we do not need to install the dotenv module as in case of our backend. Simply putting the variables in a ".env" file in the root directory does the job. This however, comes with the condition that our variable names must start with `REACR_APP_` prefix.

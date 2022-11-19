@@ -114,7 +114,7 @@ const Shop=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('Boy! It\'s taking longer than usual, Bangalore traffic I guess 😅😅', {
+            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,
@@ -211,7 +211,7 @@ const Shop=()=>{
                         </div>
                     </div>
 
-                    <div className="prd_display mt-2 sm:mt-0">
+                    <div className="prd_display mt-2 sm:mt-0 justify-items-start">
                         {product && product.map(prod =>(
                             <Product product={prod}/>
                         ))}
