@@ -117,7 +117,7 @@ const Explore=()=>{
                 />
                 </div>
                 
-                <div className="prd_display justify-items-start">
+                <div className="prd_display">
                     {product && product.map(prod =>(
                         <Product product={prod}/>
                     ))}

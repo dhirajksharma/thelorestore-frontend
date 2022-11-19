@@ -211,7 +211,7 @@ const Shop=()=>{
                         </div>
                     </div>
 
-                    <div className="prd_display mt-2 sm:mt-0 justify-items-start">
+                    <div className="prd_display mt-2 sm:mt-0">
                         {product && product.map(prod =>(
                             <Product product={prod}/>
                         ))}
