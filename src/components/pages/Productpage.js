@@ -22,6 +22,7 @@ const Productpage=()=>{
     
     const {serverError}=useContext(NavContext);
     const [addReview, setAddReview]=useState(0);
+    const [overlay, setOverlay]=useState(0);
 
     useEffect(()=>{
         dispatch(getProductDetails(id));
@@ -90,13 +91,13 @@ const Productpage=()=>{
 
     function ellipsify (str) {
         if (window.innerWidth<400 && str.length > 180) {
-            return (str.substring(0, 180) + "...");
+            return (str.substring(0, 180)+" ");
         }
         else if (window.innerWidth<450 && str.length > 250) {
-            return (str.substring(0, 250) + "...");
+            return (str.substring(0, 250)+" ");
         }
         else if (window.innerWidth<500 && str.length > 300) {
-            return (str.substring(0, 300) + "...");
+            return (str.substring(0, 300)+" ");
         }
         else {
             return str;
@@ -124,6 +125,7 @@ const Productpage=()=>{
                 });
         },8000)
     }
+
     return(
         <div id="explore" className="mx:4 sm:mx-9">
         <Metadata title="The Lore Store | Book Details" nav={1}/>
@@ -147,7 +149,27 @@ const Productpage=()=>{
                     <h1 className="font-['Montserrat'] uppercase font-medium text-sm mt-1">{product.genre}</h1>
                     <h1 className="font-['Roboto_Slab'] text-xl sm:text-2xl mt-1">{product.title}</h1>
                     <p className="font-serif">{product.author}</p>
-                    {product.description && <p className="font-serif">{ellipsify(product.description)}</p>}
+                    {overlay?
+                    <div id="infovrlay"
+                        onClick={()=>{setOverlay(0)}}
+                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center"
+                        >
+                        <div className="bg-slate-50 z-10 w-[60vw] sm:w-[50vw] max-w-[450px] min-w-[300px] overflow-auto max-h-[80vh] rounded-sm p-4 shadow-md shadow-[rgba(0,0,0,.5)]">
+                            <h1 className="font-serif text-xl">{product.title}</h1>
+                            <h2 className="font-['Montserrat'] text-sm font-medium">{product.author}</h2>
+                            <h2 className="font-['Montserrat'] text-sm font-medium">{product.isbn}</h2>
+                            <h2 className="mb-3 font-['Montserrat'] text-sm font-medium">{product.publisher}</h2>
+                            <p className="border-t pt-2 border-black font-serif">{product.description}</p>
+                        </div>
+                    </div>:null}
+                    {product.description && <p className="font-serif">
+                        {ellipsify(product.description)}
+                        {window.innerWidth<500?
+                            <button id="infovrlaybtn"
+                            onClick={()=>{setOverlay(1)}}
+                            className="font-medium italic"
+                            >...more</button>:null}
+                        </p>}
                     <p className="font-mono">{product.ratings}&#9733; [{product.numOfReviews} reviews]</p>
                     <p className="font-sans font-medium">MRP: &#8377;{product.maxprice}</p>
                     <div className="hidden sm:block">
