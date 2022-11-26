@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Helmet from "react-helmet";
 import NavContext from "./NavContext";
 
-const Metadata =({title, nav, ogimage="https://github.com/dhirajksharma/thelorestore-frontend/blob/main/src/res/thumb.jpg?raw=true"}, ogtitle="The Lore Store", ogdes="An online Book Store created by one Dhiraj K. Sharma") =>{
+const Metadata =({title, nav}) =>{
 
     const { navOption, setNavOption } = useContext(NavContext);
     const setNav=()=>{
@@ -17,9 +17,6 @@ const Metadata =({title, nav, ogimage="https://github.com/dhirajksharma/thelores
         <Helmet>
             <title>{title}</title>
             {setNav()};
-            <meta name="og:image" content={ogimage} />
-            <meta property="og:title" content={ogtitle} />
-            <meta property="og:description" content={ogdes}/>
         </Helmet>
     )
 }

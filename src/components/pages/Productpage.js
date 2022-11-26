@@ -138,7 +138,7 @@ const Productpage=()=>{
             <div>
         {product?(
             <Fragment>
-            <Metadata title="The Lore Store | Book Details" nav={1} ogimage={product.image[0].url} ogtitle={product.title} ogdes={product.description}/>
+            
             <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
             <div id='prddiv' className="grid grid-cols-[auto_2fr] justify-items-center sm:ml-10 mx-2 mt-2">
             {product.image && product.image.map(obj =>{
