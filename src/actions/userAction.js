@@ -234,7 +234,6 @@ export const addOrder=(address,cart,phone)=>async(dispatch)=>{
         itemsPrice+=(cart[index].price)*(cart[index].quantity)
     }
     totalPrice=itemsPrice+shippingPrice;
-    console.log('dispatching')
     const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/order/new`,{
         shippingInfo:{
             address:{

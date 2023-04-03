@@ -408,7 +408,9 @@ const User=()=>{
                         <button onClick={checkoutHandler} className="font-medium font-['Montserrat'] border-2 p-1 h-fit self-center border-[#f7735c] hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Check Out</button>
                     </div>
                     <h1 className='font-["Roboto_Slab"] font-medium mt-7 mb-5 text-gray-500 text-center text-sm sm:text-base'>
-                            <p className='inline text-black'>Disclaimer:</p> This site has been developed for academic purposes, we do not sell books. Do not use real payment methods at the payment gateway. If any money is lost, the owner of the site, shall not be held liable for the same.
+                            <p className='inline text-black'>Disclaimer: </p>
+                            This site has been developed for academic purposes, we do not sell books.
+                            Only use the card number <i>4242 4242 4242 4242, where CVV is 123 with any future date as expiry</i> to test the payment integration. Do not use real payment methods.
                     </h1>
                     </Fragment>):(
                         <div className='w-[90vw] sm:w-auto font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>
