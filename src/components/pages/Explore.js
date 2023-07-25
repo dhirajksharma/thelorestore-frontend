@@ -57,7 +57,7 @@ const Explore=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
+            toast('🐢 The first request takes upto 30s, please wait while the server is spun up...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,
@@ -71,7 +71,7 @@ const Explore=()=>{
         },8000)
     }
         return(
-            <div id="explore" className="mx-4 sm:mx-9">
+            <div id="explore" className="mx-4 sm:mx-9 text-text">
             <Metadata title="The Lore Store | Explore"  nav={1}/>
                 {loading ?(
                         <Fragment>
@@ -81,7 +81,7 @@ const Explore=()=>{
             ):(
             <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Browse Genres</h1>                
+                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Browse Genres</h1>                
                 
                 <div className="hidden sm:flex flex-col pl-1">
                     {generateOptions()}

@@ -166,7 +166,7 @@ const User=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
+            toast('🐢 The first request takes upto 30s, please wait while the server is spun up...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,
@@ -188,9 +188,9 @@ const User=()=>{
                         </Fragment>
             ):(
         <Fragment>
-        <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
+        <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh] text-text">
 
-        <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">User Info</h1>                
+        <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">User Info</h1>                
 
         <div id='tinyuser' className='sm:hidden'>
         <TinyDropdown
@@ -234,38 +234,38 @@ const User=()=>{
 
             <div className="sm:w-[75vw]">
                 {option==='Profile' && user && (<Fragment>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Name</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Name</h3>
                 <h2 className="mb-3 font-serif tracking-wider text-slate-900">
                 {user.name}
                 </h2>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Email Address</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Email Address</h3>
                 <h2 className="mb-3 font-serif tracking-wider text-slate-900">
                 {user.email}
                 </h2>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Role</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Role</h3>
                 <h2 className="mb-3 font-serif tracking-wider text-slate-900">
                 {user.role}
                 </h2>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Phone Number</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Phone Number</h3>
                 <h2 className="mb-3 font-serif tracking-wider text-slate-900">
                 {user.phone?user.phone:""}
                 </h2>
 
-                <h3 className="mt-5 mb-1 font-['Montserrat'] font-medium text-gray-500 uppercase ">Address</h3>
+                <h3 className="mt-5 mb-1 font-['Montserrat'] font-medium text-gray-500 uppercase  text-text2">Address</h3>
                 {user.address && <Fragment>
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Local Address</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Local Address</h3>
                 <h2 className="mb-2 font-serif tracking-wider text-slate-900">
                 {user.address.localaddress}
                 </h2>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Pin Code</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Pin Code</h3>
                 <h2 className="mb-2 font-serif tracking-wider text-slate-900">
                 {user.address.pincode}
                 </h2>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">City</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">City</h3>
                 <h2 className="mb-2 font-serif tracking-wider text-slate-900">
                 {user.address.city}
                 </h2>
-                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">State</h3>
+                <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">State</h3>
                 <h2 className="font-serif tracking-wider text-slate-900">
                 {user.address.state}
                 </h2>
@@ -278,34 +278,34 @@ const User=()=>{
 
                 {option==='Edit Profile' && (<Fragment>
                     <form onSubmit={UpdateProfileHandler}>
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Name</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Name</h3>
                         <input
                             type="text"
                             placeholder="Name"
                             value={profileDetails.name}
                             pattern="[a-zA-Z ]*$"
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, name: e.target.value}))}
                         />
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Email Address</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Email Address</h3>
                         <input
                             type="text"
                             placeholder="Email"
                             value={profileDetails.email}
                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, email: e.target.value}))}
                         />
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Phone Number</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Phone Number</h3>
                         <input
                             type="text"
                             placeholder="Phone"
                             value={profileDetails.phone}
                             pattern="[789][0-9]{9}"
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, phone: e.target.value}))}
                         />
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Role</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Role</h3>
                         <select
                             className='-ml-1'
                             value={profileDetails.role}
@@ -314,72 +314,72 @@ const User=()=>{
                             <option value="seller">Seller</option>
                         </select>
                     <h3 className="mt-5 mb-1 font-['Montserrat'] font-medium text-gray-500 uppercase ">Address</h3>
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Local Address</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Local Address</h3>
                         <input
                             type="text"
                             placeholder="Local Address"
                             value={profileDetails.address.localaddress}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, address:{...profileDetails.address, localaddress: e.target.value}}))}
                         />
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Pin Code</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">Pin Code</h3>
                     <input
                         type="text"
                         placeholder="Pincode"
                         value={profileDetails.address.pincode}
-                        className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                        className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                         onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, address:{...profileDetails.address, pincode: e.target.value}}))}
                     />
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">City</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">City</h3>
                         <input
                             type="text"
                             placeholder="City"
                             value={profileDetails.address.city}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, address:{...profileDetails.address, city: e.target.value}}))}
                         />
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">State</h3>
+                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm text-text2">State</h3>
                         <input
                             type="text"
                             placeholder="State"
                             value={profileDetails.address.state}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, address:{...profileDetails.address, state: e.target.value}}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Profile</button>
+                        <button type='submit' className='border-2 p-1 border-primary-button bg-primary-button hover:bg-accent rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Profile</button>
                     </form>
                 </Fragment>)}
 
                 {option==='Edit Password' && (<Fragment>
                     <form onSubmit={UpdatePassHandler}>
-                        <h3 className="font-['Montserrat'] font-medium text-gray-700 uppercase text-sm">Old Password</h3>
+                        <h3 className="font-['Montserrat'] font-medium text-gray-700 uppercase text-sm text-text2">Old Password</h3>
                         <input
                             required
                             type="password"
                             placeholder="Old Password"
                             value={passdetails.oldPassword}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setPassDetails(passdetails=>({...passdetails, oldPassword: e.target.value}))}
                         />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-700 uppercase text-sm mt-2">New Password</h3>
+                        <h3 className="font-['Montserrat'] font-medium text-gray-700 uppercase text-sm mt-2 text-text2">New Password</h3>
                         <input
                             required
                             type="password"
                             placeholder="New Password"
                             value={passdetails.newPassword}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setPassDetails(passdetails=>({...passdetails, newPassword: e.target.value}))}
                         />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-700 uppercase text-sm mt-2">Confirm New Password</h3>
+                        <h3 className="font-['Montserrat'] font-medium text-gray-700 uppercase text-sm mt-2 text-text2">Confirm New Password</h3>
                         <input
                             required
                             type="password"
                             placeholder="Confirm New Password"
                             value={passdetails.confirmPassword}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b"
+                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setPassDetails(passdetails=>({...passdetails, confirmPassword: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300 rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Password</button>
+                        <button type='submit' className='border-2 p-1 border-primary-button bg-primary-button hover:bg-accent rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Password</button>
                     </form>
                 </Fragment>)}
 
@@ -401,14 +401,14 @@ const User=()=>{
                         </Link>
                     })
                     }</div>
-                    {user.cart.length>0?(<Fragment><div className='flex flex-row justify-between border-t mb-4 pt-4 border-red-300'>
+                    {user.cart.length>0?(<Fragment><div className='flex flex-row justify-between border-t border-accent mb-4 pt-4 border-red-300'>
                         <h1 className='font-["Montserrat"] text-lg font-medium inline self-center'>
                         Total Cost of Cart: &#8377;{cost}
                         </h1>
-                        <button onClick={checkoutHandler} className="font-medium font-['Montserrat'] border-2 p-1 h-fit self-center border-[#f7735c] hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Check Out</button>
+                        <button onClick={checkoutHandler} className="font-medium font-['Montserrat'] border-2 border-primary-button hover:bg-accent p-1 h-fit self-center bg-primary-button hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Check Out</button>
                     </div>
-                    <h1 className='font-["Roboto_Slab"] font-medium mt-7 mb-5 text-gray-500 text-center text-sm sm:text-base'>
-                            <p className='inline text-black'>Disclaimer: </p>
+                    <h1 className='font-["Roboto_Slab"] font-medium mt-7 mb-5 text-gray-500 text-center text-sm sm:text-base text-text2'>
+                            <p className='inline text-text'>Disclaimer: </p>
                             This site has been developed for academic purposes, we do not sell books.
                             Only use the card number <i>4242 4242 4242 4242, where CVV is 123 with any future date as expiry</i> to test the payment integration. Do not use real payment methods.
                     </h1>
@@ -424,10 +424,10 @@ const User=()=>{
                     {orders.length>0?(<div className=''>
                     {orders.map(obj=>{
                         
-                        return <Link to={`/orders/${obj._id}`}><div className='mb-3 border-x border-y p-2'>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Order ID:</h1> {obj._id}</h1>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Order Date:</h1> {obj.orderDate}</h1>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Order Total:</h1> &#8377;{obj.totalPrice}</h1>
+                        return <Link to={`/orders/${obj._id}`}><div className='mb-3 border-x border-y p-2 border-accent shadow-sm shadow-text2 rounded-sm hover:bg-secondary-button'>
+                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order ID:</h1> {obj._id}</h1>
+                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order Date:</h1> {obj.orderDate}</h1>
+                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order Total:</h1> &#8377;{obj.totalPrice}</h1>
                         </div></Link>
                     })
                     }</div>):(

@@ -38,7 +38,7 @@ const Resetpassword=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
+            toast('🐢 The first request takes upto 30s, please wait while the server is spun up...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,

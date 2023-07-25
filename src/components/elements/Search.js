@@ -21,7 +21,7 @@ const Search=()=>{
                     type="text"
                     placeholder="Search a book . . ."
                     onChange={(e)=>setKeyword(e.target.value)}
-                    className="font-['Roboto_Slab'] text-lg mt-4 border-b"
+                    className="font-['Roboto_Slab'] mt-4 border-b border-accent bg-background"
                 />
             </form>
         </Fragment>

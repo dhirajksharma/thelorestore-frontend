@@ -133,7 +133,7 @@ const Dashboard=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
+            toast('🐢 The first request takes upto 30s, please wait while the server is spun up...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,
@@ -150,16 +150,16 @@ const Dashboard=()=>{
         <div className=''>
         <Metadata title="The Lore Store | Seller Dashboard"  nav={3}/>
         {loading===true || productsLoading===true || ordersLoading===true?(
-                    <Fragment>
+                <Fragment>
                     <Loader/>
                     {traffcheck()}
-                    </Fragment>
+                </Fragment>
             ):(<div>
                 {user.role==="seller"?(
             <Fragment>
             <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Seller Dashboard</h1>
+            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Seller Dashboard</h1>
 
             <div id='tinydash' className='sm:hidden'>
                 <TinyDropdown

@@ -11,6 +11,7 @@ const Logon = ()=>{
     
     const navigate=useNavigate();
     const [formType, setFormType]=useState('login');
+    const guestdetails={email:"guest101@gmail.com",password:"hellohello"};
     const [logindetails, setLoginDetails]=useState({email:"", password:""});
     const [registerdetails, setRegisterDetails]=useState({name:"", email:"", password:""});
     const dispatch=useDispatch();
@@ -42,6 +43,11 @@ const Logon = ()=>{
         dispatch(login(logindetails));
     }
 
+    const GuestHandler=(e)=>{
+        e.preventDefault();
+        dispatch(login(guestdetails));
+    }
+
     const RegisterHandler=(e)=>{
         e.preventDefault();
         dispatch(register(registerdetails))
@@ -67,7 +73,7 @@ const Logon = ()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
+            toast('🐢 The first request takes upto 30s, please wait while the server is spun up...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,
@@ -81,7 +87,7 @@ const Logon = ()=>{
         },8000)
     }
     return(
-        <div id="logon" className="mx-4 sm:mx-9 h-[90vh] flex items-center justify-center">
+        <div id="logon" className="mx-4 sm:mx-9 h-[90vh] flex items-center justify-center text-text">
             <Metadata title="The Lore Store | Sign In/Up" nav={3}/>
             {loading ?(
                         <Fragment>
@@ -110,8 +116,7 @@ const Logon = ()=>{
                 
                 <div id='form' className="col-start-1 col-end-3 mt-4">
                     {formType==='login'?(
-                        <div className="">
-                            <form
+                        <form
                                 onSubmit={LoginHandler}
                                 className="flex flex-col">
                                 <input
@@ -121,7 +126,7 @@ const Logon = ()=>{
                                     value={logindetails.email}
                                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                     onChange={(e)=>setLoginDetails(logindetails=>({...logindetails, email: e.target.value}))}
-                                    className="block text-center mb-1 tracking-wider border-b"
+                                    className="block text-center mb-1 tracking-wider border-b border-secondary-button bg-background"
                                 />
                                 <input
                                     required
@@ -129,11 +134,12 @@ const Logon = ()=>{
                                     placeholder="Password"
                                     value={logindetails.password}
                                     onChange={(e)=>setLoginDetails(logindetails=>({...logindetails, password: e.target.value}))}
-                                    className="block text-center mb-2 tracking-wider border-b"
+                                    className="block text-center mb-2 tracking-wider border-b border-secondary-button bg-background"
                                 />
-                                <button type='submit' className="tracking-wider mt-4 border-2 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Login</button>
-                            </form>
-                        </div>
+                                <button type='submit' className="tracking-wider mt-4 mb-2 border-2 border-primary-button bg-primary-button hover:bg-accent rounded-sm">Login</button>
+                                <button className="tracking-wider border-2 border-secondary-button bg-secondary-button rounded-sm" onClick={GuestHandler}>Login As Guest</button>
+                        </form>
+                        
                     ):(
                         
                             <form onSubmit={RegisterHandler}
@@ -145,7 +151,7 @@ const Logon = ()=>{
                                     value={registerdetails.name}
                                     pattern="[a-zA-Z ]*$"
                                     onChange={(e)=>setRegisterDetails(registerdetails=>({...registerdetails, name: e.target.value}))}
-                                    className="block text-center mb-2 tracking-wider border-b"
+                                    className="block text-center mb-2 tracking-wider border-b border-secondary-button bg-background"
                                 />
                                 <input
                                     required
@@ -154,7 +160,7 @@ const Logon = ()=>{
                                     value={registerdetails.email}
                                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                     onChange={(e)=>setRegisterDetails(registerdetails=>({...registerdetails, email: e.target.value}))}
-                                    className="block text-center mb-2 tracking-wider border-b"
+                                    className="block text-center mb-2 tracking-wider border-b border-secondary-button bg-background"
                                 />
                                 <input
                                     required
@@ -162,9 +168,9 @@ const Logon = ()=>{
                                     placeholder="Password"
                                     value={registerdetails.password}
                                     onChange={(e)=>setRegisterDetails(registerdetails=>({...registerdetails, password: e.target.value}))}
-                                    className="block text-center mb-4 tracking-wider border-b"
+                                    className="block text-center mb-4 tracking-wider border-b border-secondary-button bg-background"
                                 />
-                                <button type='submit' className="tracking-wider mt-4 border-2 border-[#f7735c]  hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Register</button>
+                                <button type='submit' className="tracking-wider mt-4 mb-2 border-2 border-primary-button bg-primary-button hover:bg-accent rounded-sm">Register</button>
                             </form>
                         
                     )}

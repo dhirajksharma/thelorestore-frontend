@@ -112,7 +112,7 @@ const Productpage=()=>{
     const traffcheck=()=>{
         setTimeout(()=>{
             if(loadRef.current===true && serverRef.current!==1)
-            toast('🐢 Boy! It\'s taking longer than usual. Please wait while we do something...', {
+            toast('🐢 The first request takes upto 30s, please wait while the server is spun up...', {
                 position: "top-center",
                 autoClose: 3500,
                 hideProgressBar: true,
@@ -127,7 +127,7 @@ const Productpage=()=>{
     }
 
     return(
-        <div id="explore" className="mx:4 sm:mx-9">
+        <div id="explore" className="mx:4 sm:mx-9 text-text">
         <Metadata title="The Lore Store | Book Details" nav={1}/>
         {loading ?(
                         <Fragment>
@@ -139,27 +139,27 @@ const Productpage=()=>{
         {product?(
             <Fragment>
             
-            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-[#fa846f] w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
+            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
             <div id='prddiv' className="grid grid-cols-[auto_2fr] justify-items-center sm:ml-10 mx-2 mt-2">
             {product.image && product.image.map(obj =>{
                 return <img id="prdimg" alt="product" src={obj.url} className=" w-[30vw] sm:w-48 m-2 justify-self-end aspect-ratio-[0.69] self-center"></img>
             })
             }
                 <div className="self-start justify-self-start mt-1 ml-1">
-                    <h1 className="font-['Montserrat'] uppercase font-medium text-sm mt-1">{product.genre}</h1>
+                    <h1 className="font-['Montserrat'] uppercase font-medium text-sm mt-1 text-text2">{product.genre}</h1>
                     <h1 className="font-['Roboto_Slab'] text-xl sm:text-2xl mt-1">{product.title}</h1>
-                    <p className="font-serif">{product.author}</p>
+                    <p className="font-serif text-text2">{product.author}</p>
                     {overlay?
                     <div id="infovrlay"
                         onClick={()=>{setOverlay(0)}}
                         className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center"
                         >
-                        <div className="bg-slate-50 z-10 w-[60vw] sm:w-[50vw] max-w-[450px] min-w-[300px] overflow-auto max-h-[80vh] rounded-sm p-4 shadow-md shadow-[rgba(0,0,0,.5)]">
+                        <div className="bg-background z-10 w-[60vw] sm:w-[50vw] max-w-[450px] min-w-[300px] overflow-auto max-h-[80vh] rounded-sm p-4 shadow-md shadow-[rgba(0,0,0,.5)]">
                             <h1 className="font-serif text-xl">{product.title}</h1>
-                            <h2 className="font-['Montserrat'] text-sm font-medium">{product.author}</h2>
-                            <h2 className="font-['Montserrat'] text-sm font-medium">{product.isbn}</h2>
-                            <h2 className="mb-3 font-['Montserrat'] text-sm font-medium">{product.publisher}</h2>
-                            <p className="border-t pt-2 border-black font-serif">{product.description}</p>
+                            <h2 className="font-['Montserrat'] text-sm font-medium text-text2">{product.author}</h2>
+                            <h2 className="font-['Montserrat'] text-sm font-medium text-text2">{product.isbn}</h2>
+                            <h2 className="mb-3 font-['Montserrat'] text-sm font-medium text-text2">{product.publisher}</h2>
+                            <p className="border-t pt-2 border-accent font-serif">{product.description}</p>
                         </div>
                     </div>:null}
                     {product.description && <p className="font-serif">
@@ -167,13 +167,13 @@ const Productpage=()=>{
                         {window.innerWidth<500?
                             <button id="infovrlaybtn"
                             onClick={()=>{setOverlay(1)}}
-                            className="font-medium italic"
+                            className="font-medium italic border-b border-accent"
                             >...more</button>:null}
                         </p>}
-                    <p className="font-mono">{product.ratings}&#9733; [{product.numOfReviews} reviews]</p>
+                    <p className="font-mono">{product.ratings}&#11088; [{product.numOfReviews} reviews]</p>
                     <p className="font-sans font-medium">MRP: &#8377;{product.maxprice}</p>
                     <div className="hidden sm:block">
-                        <p className="font-['Montserrat'] uppercase font-medium text-sm mt-2 mb-2">Available Sellers</p>
+                        <p className="font-['Montserrat'] uppercase font-medium text-sm mt-3 mb-2 text-text2">Available Sellers</p>
                         <div className="flex flex-row">
                         {product.sellers && product.sellers.map(obj =>{
                             
@@ -185,7 +185,7 @@ const Productpage=()=>{
                                     <h1 className="inline text-lg">1</h1>
                                     <button className="ml-2" onClick={(e)=>{increaseQuantity(e,obj.quantity)}}>+</button>
                                 </h1>
-                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-[#f7735c] px-2 py-2 mt-2 hover:bg-red-50 active:bg-gray-200 active:border-gray-300">Add to Cart</button>
+                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-primary-button bg-primary-button px-2 py-2 mt-2 hover:bg-accent rounded-sm">Add to Cart</button>
                             </div>
                         })}
                         </div>
@@ -205,7 +205,7 @@ const Productpage=()=>{
                                     <h1 className="inline text-lg">1</h1>
                                     <button className="ml-2" onClick={(e)=>{increaseQuantity(e,obj.quantity)}}>+</button>
                                 </h1>
-                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-[#f7735c] px-2 py-2 mt-2 hover:bg-red-50 active:bg-gray-200 active:border-gray-300">Add to Cart</button>
+                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-primary-button px-2 py-2 mt-2 hover:bg-accent">Add to Cart</button>
                             </div>
                         })}
                         </div>
@@ -216,10 +216,15 @@ const Productpage=()=>{
                         Reviews
                         {user._id && <button className="ml-1 text-lg" onClick={()=>{setAddReview(addReview=>addReview^1)}}>&#9997;</button>}
                     </p>
-                    {addReview===1 && <div className="flex flex-row justify-center">
+                    {addReview?
+                    <div id="infovrlay"
+                        onClick={()=>{setAddReview(addReview=>addReview^1)}}
+                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center"
+                        >
                         <form
                             onSubmit={addReviewHandler}
-                            className="font-serif flex flex-col items-center border-2 p-2 w-fit mb-2"
+                            className="font-serif flex flex-col items-center p-5 rounded-sm w-fit mb-2 bg-background shadow-md shadow-[rgba(0,0,0,.5)]"
+                            onClick={(e)=>{e.stopPropagation()}}
                         >
                         <label>Rating:
                         <select
@@ -239,26 +244,26 @@ const Productpage=()=>{
                         placeholder="Comment"
                         value={review.comment}
                         onChange={(e)=>setReview(review=>({...review, comment: e.target.value}))}
-                        className="block border-x border-y max-w-[280px] mb-2"
+                        className="block border-x border-y border-accent max-w-[280px] mb-4"
                         rows={4}
                         cols={50}
                         ></textarea>
-                        <button type='submit' className="border p-1 border-[#f7735c]">Add Review</button>
+                        <button type='submit' className="p-2 bg-primary-button rounded-sm">Add Review</button>
                         </form>
-                    </div>}
+                    </div>:null}
+                    
                     <div>
                         {product.reviews && product.reviews.map(review =>(
-                                
-                                <div className="flex flex-col justify-evenly border p-2 w-[90vw] sm:w-[80vw] mb-5 mr-1">
-                                    <h2 className="font-['Montserrat'] font-medium flex flex-row justify-between">
-                                        {review.name}: {review.rating}&#9733;
-                                        {user && (user._id===review.userId || user.role==="seller") && <button
-                                        className="text-xl"
-                                        onClick={()=>{deleteReviewHandler(review)}}>
-                                        &#10062;</button>}
-                                    </h2>
-                                    <h2 className="font-['Roboto_Slab'] text-sm mt-1">{review.comment}</h2>
-                                </div>
+                            <div className="flex flex-col justify-evenly border border-accent shadow-sm shadow-text rounded-sm p-2 w-[90vw] sm:w-[80vw] mb-5 mr-1">
+                                <h2 className="font-['Montserrat'] font-medium flex flex-row justify-between">
+                                    {review.name}: &#11088; {review.rating}
+                                    {user && (user._id===review.userId || user.role==="seller") && <button
+                                    className="text-xl"
+                                    onClick={()=>{deleteReviewHandler(review)}}>
+                                    &#10062;</button>}
+                                </h2>
+                                <h2 className="font-['Roboto_Slab'] text-sm mt-1">{review.comment}</h2>
+                            </div>
                         ))}
                     </div>
                 </div>

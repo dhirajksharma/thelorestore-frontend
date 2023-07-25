@@ -23,13 +23,16 @@
     left:unset;
 }
 
+.css-3g5hux-Slider{
+    background-color: #ad5ac4 !important;
+}
 @media (max-width:639px) {
     
     #filterdiv{
         position: absolute;
         top: 65px;
         z-index: 2;
-        background-color: white;
+        background-color: #fdfbfe;
         border-radius: 3px;
         padding: 8px;
         box-shadow: 0px 0px 6px 4px rgb(0 0 0 / 5%);

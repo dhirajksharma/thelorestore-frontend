@@ -18,13 +18,13 @@ const Home=()=>{
                 <Metadata title="The Lore Store | Home"  nav={0}/>
                 <img src={homeimg} alt="" className="md:hidden w-[80vw] max-w-[430px] aspect-square"></img>
                 
-                <div className="">
+                <div className="text-text">
                 <h1 className="font-['Averia_Serif_Libre'] text-2xl md:text-4xl w-fit">What Lore Got You Hooked Today?</h1>
                 <p className="font-['Montserrat'] md:text-2xl w-fit">Explore some from our best collection...</p>
 
                     <button
                     onClick={exploreHandler}
-                    className="border-[3px] border-[#f7735c] font-medium px-8 py-2 mt-5 hover:bg-red-50 active:bg-gray-100 active:border-gray-200"
+                    className="border-[3px] bg-primary-button hover:bg-accent border-primary-button hover:border-accent rounded-sm font-medium px-8 py-2 mt-5 active:border-[1px]"
                     >Explore</button>
                 </div>
                 
