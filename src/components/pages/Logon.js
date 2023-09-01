@@ -136,8 +136,8 @@ const Logon = ()=>{
                                     onChange={(e)=>setLoginDetails(logindetails=>({...logindetails, password: e.target.value}))}
                                     className="block text-center mb-2 tracking-wider border-b border-secondary-button bg-background"
                                 />
-                                <button type='submit' className="tracking-wider mt-4 mb-2 border-2 border-primary-button bg-primary-button hover:bg-accent rounded-sm">Login</button>
-                                <button className="tracking-wider border-2 border-secondary-button bg-secondary-button rounded-sm" onClick={GuestHandler}>Login As Guest</button>
+                                <button type='submit' className="tracking-wider mt-4 mb-2 border-2 py-1 border-yellow-400 bg-yellow-400 hover:bg-yellow-300 hover:border-yellow-300 rounded-md">Login</button>
+                                <button className="tracking-wider border-2 py-1 bg-gray-200 border-gray-200 hover:bg-gray-300 hover:border-gray-300 rounded-md" onClick={GuestHandler}>Login As Guest</button>
                         </form>
                         
                     ):(
@@ -170,14 +170,14 @@ const Logon = ()=>{
                                     onChange={(e)=>setRegisterDetails(registerdetails=>({...registerdetails, password: e.target.value}))}
                                     className="block text-center mb-4 tracking-wider border-b border-secondary-button bg-background"
                                 />
-                                <button type='submit' className="tracking-wider mt-4 mb-2 border-2 border-primary-button bg-primary-button hover:bg-accent rounded-sm">Register</button>
+                                <button type='submit' className="tracking-wider mt-4 mb-2 border-2 py-1 border-yellow-400 bg-yellow-400 hover:bg-yellow-300 hover:border-yellow-300 rounded-md">Register</button>
                             </form>
                         
                     )}
                 </div>
                 <button 
                 onClick={()=>{navigate('/resetpassword')}}
-                className="col-start-1 col-end-3 text-blue-600 mt-1  text-right">Forgot Password?</button>
+                className="col-start-1 col-end-3 text-blue-600 mt-1 pb-[1px] text-right hover:border-b hover:pb-0 hover:border-blue-400 w-fit">Forgot Password?</button>
             </div>
             )}
             </div>

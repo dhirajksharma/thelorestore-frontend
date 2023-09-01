@@ -190,7 +190,7 @@ const User=()=>{
         <Fragment>
         <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh] text-text">
 
-        <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">User Info</h1>                
+        <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-yellow-400 w-1/3 pb-1 col-start-1 col-end-3">User Info</h1>                
 
         <div id='tinyuser' className='sm:hidden'>
         <TinyDropdown
@@ -222,13 +222,13 @@ const User=()=>{
                 </div>
 
             <div className="hidden sm:flex flex-col items-start font-['Montserrat'] font-medium ml-1">        
-                <button onClick={handleToggle} className='mb-1'>Profile</button>
-                <button onClick={handleToggle} className='mb-1'>Cart</button>
-                <button onClick={handleToggle} className='mb-1'>Orders</button>
-                {user.role==='seller' && <button onClick={handleToggle} className='mb-1'>Dashboard</button>}
-                <button onClick={handleToggle} className='mb-1'>Edit Profile</button>
-                <button onClick={handleToggle} className='mb-1'>Edit Password</button>
-                <button onClick={handleToggle} className='mb-1'>Logout</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Profile</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Cart</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Orders</button>
+                {user.role==='seller' && <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Dashboard</button>}
+                <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Edit Profile</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Edit Password</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 w-full font-serif text-left font-light mb-1 px-2 py-1 rounded-md'>Logout</button>
             </div>
             
 
@@ -346,7 +346,7 @@ const User=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setProfileDetails(profileDetails=>({...profileDetails, address:{...profileDetails.address, state: e.target.value}}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-primary-button bg-primary-button hover:bg-accent rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Profile</button>
+                        <button type='submit' className='p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Profile</button>
                     </form>
                 </Fragment>)}
 
@@ -379,7 +379,7 @@ const User=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[280px] w-[30vw] border-b border-secondary-button bg-background"
                             onChange={(e)=>setPassDetails(passdetails=>({...passdetails, confirmPassword: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-primary-button bg-primary-button hover:bg-accent rounded-sm block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Password</button>
+                        <button type='submit' className='p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Password</button>
                     </form>
                 </Fragment>)}
 
@@ -389,7 +389,7 @@ const User=()=>{
                         cost+=obj.quantity*obj.price;
                         return <Link to={`/books/${obj.productID}`}>
                         <div className='grid grid-cols-[auto_1fr] grid-rows-1 items-center justify-items-start mb-4'>
-                            <img src={obj.image} alt="product" className='h-[150px] aspect-ratio-[0.69]'/>
+                            <img src={obj.image} alt="product" className='h-[150px] aspect-[3/4] rounded-md'/>
                             <div className='font-serif ml-3'>
                                 <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Book:</h1> {obj.name}</h1>
                                 <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Seller:</h1> {obj.sellerName}</h1>
@@ -405,7 +405,7 @@ const User=()=>{
                         <h1 className='font-["Montserrat"] text-lg font-medium inline self-center'>
                         Total Cost of Cart: &#8377;{cost}
                         </h1>
-                        <button onClick={checkoutHandler} className="font-medium font-['Montserrat'] border-2 border-primary-button hover:bg-accent p-1 h-fit self-center bg-primary-button hover:bg-gray-100 active:bg-gray-200 active:border-gray-300">Check Out</button>
+                        <button onClick={checkoutHandler} className="font-medium font-['Montserrat'] border-2 border-yellow-400 hover:border-yellow-300 p-2 rounded-md h-fit self-center bg-yellow-400 hover:bg-yellow-300">Check Out</button>
                     </div>
                     <h1 className='font-["Roboto_Slab"] font-medium mt-7 mb-5 text-gray-500 text-center text-sm sm:text-base text-text2'>
                             <p className='inline text-text'>Disclaimer: </p>
@@ -421,14 +421,16 @@ const User=()=>{
                 </Fragment>)}
 
                 {option==='Orders' && loading===false && (<Fragment>
-                    {orders.length>0?(<div className=''>
-                    {orders.map(obj=>{
-                        
-                        return <Link to={`/orders/${obj._id}`}><div className='mb-3 border-x border-y p-2 border-accent shadow-sm shadow-text2 rounded-sm hover:bg-secondary-button'>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order ID:</h1> {obj._id}</h1>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order Date:</h1> {obj.orderDate}</h1>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order Total:</h1> &#8377;{obj.totalPrice}</h1>
-                        </div></Link>
+                    {orders.length>0?(
+                    <div className='sm:grid sm:grid-cols-2 md:grid-cols-3'>
+                    {orders.map(obj=>{                        
+                        return <Link to={`/orders/${obj._id}`}>
+                            <div className='m-3 border-x border-y p-4 shadow-sm rounded-md max-w-[300px]'>
+                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order ID:</h1> {obj._id.substring(0,15)}</h1>
+                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order Date:</h1> {obj.orderDate.substring(0,10)}</h1>
+                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide text-text2'>Order Total:</h1> &#8377;{obj.totalPrice}</h1>
+                            </div>
+                        </Link>
                     })
                     }</div>):(
                         <div className='font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>

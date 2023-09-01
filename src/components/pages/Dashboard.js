@@ -159,7 +159,7 @@ const Dashboard=()=>{
             <Fragment>
             <div className="mx-4 sm:mx-9 grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Seller Dashboard</h1>
+            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-yellow-400 w-1/3 pb-1 col-start-1 col-end-3">Seller Dashboard</h1>
 
             <div id='tinydash' className='sm:hidden'>
                 <TinyDropdown
@@ -192,26 +192,27 @@ const Dashboard=()=>{
 
 
             <div className="hidden sm:flex flex-col items-start font-['Montserrat'] font-medium ml-1">        
-                <button onClick={handleToggle} className='mb-1'>My Products</button>
-                <button onClick={handleToggle} className='mb-1'>Add New Product</button>
-                <button onClick={handleToggle} className='mb-1'>Update a Product</button>
-                <button onClick={handleToggle} className='mb-1'>Orders</button>
-                <button onClick={handleToggle} className='mb-1'>Statistics</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>My Products</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Add New Product</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Update a Product</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Orders</button>
+                <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Statistics</button>
             </div>
     
             <div className="sm:w-[75vw]">
-                {option==='My Products' && (<Fragment>
-                    {products.length>0?(<div>
+                {option==='My Products' && products && (<Fragment>
+                    {products.length>0?(
+                    <div className='sm:grid sm:grid-cols-2 lg:grid-cols-3'>
                     {products.map(obj=>{
                         return <Link to={`/books/${obj._id}`}>
-                        <div className='grid grid-cols-[auto_1fr] grid-rows-1 items-center justify-items-start mb-4'>
-                            <img src={obj.image[0].url} alt="product" className='h-[150px] aspect-ratio-[0.69]'/>
-                            <div className='font-serif ml-3'>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Book:</h1> {obj.title}</h1>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>ISBN:</h1> {obj.isbn}</h1>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Quantity:</h1> {obj.sellers[0].quantity}</h1>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>MRP:</h1> &#8377;{obj.maxprice}</h1>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Selling Price:</h1> &#8377;{obj.sellers[0].sellingPrice}</h1>
+                        <div className='grid sm:block grid-cols-[auto_1fr] grid-rows-1 items-center justify-items-start mb-4'>
+                            <img src={obj.image[0].url} alt="product" className='h-[150px] aspect-[3/4] rounded-md'/>
+                            <div className='font-serif pt-2 ml-2 sm:ml-0'>
+                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Book:</h1> {obj.title.substring(0,30)}</h1>
+                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>ISBN:</h1> {obj.isbn}</h1>
+                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Quantity:</h1> {obj.sellers[0].quantity}</h1>
+                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>MRP:</h1> &#8377;{obj.maxprice}</h1>
+                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>SP:</h1> &#8377;{obj.sellers[0].sellingPrice}</h1>
                             </div>
                         </div>
                         </Link>})
@@ -328,7 +329,7 @@ const Dashboard=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
                             onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, image: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 py-1 px-2 border-[#f7735c] block mt-4 mb-5 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200 active:border-gray-300'>Add Book</button>
+                        <button type='submit' className='p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md block mt-4 mb-3 font-["Montserrat"] font-medium'>Add Book</button>
                     </form>
                 </Fragment>)}
 
@@ -429,17 +430,21 @@ const Dashboard=()=>{
                             className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
                             onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, image: e.target.value}))}
                         />
-                        <button type='submit' className='border-2 p-1 border-[#f7735c] block mt-4 mb-5 font-["Montserrat"] font-medium hover:bg-gray-100 active:bg-gray-200 active:border-gray-300'>Update Book</button>
+                        <button type='submit' className='p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Book</button>
                     </form>
                 </Fragment>)}
 
-                {option==='Orders' && (<Fragment>
-                    {orders.length>0?(<div>
-                    {orders.map(obj=>{
-                        return <Link to={`/orders/${obj._id}`}><div className='mb-3 border-x border-y p-2'>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Order ID:</h1> {obj._id}</h1>
-                        <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Ordered Items:</h1> {obj.orderItems.length}</h1>
-                        </div></Link>
+                {option==='Orders' && orders && (<Fragment>
+                    {orders.length>0?(
+                    <div className='sm:grid sm:grid-cols-2 md:grid-cols-3'>
+                    {orders.map(obj=>{                        
+                        return <Link to={`/orders/${obj._id}`}>
+                            <div className='m-3 border-x border-y p-4 shadow-sm rounded-md max-w-[300px]'>
+                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Order ID:</h1> {obj._id.substring(0,15)}</h1>
+                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Location:</h1> {obj.shippingInfo.address.city+', '+obj.shippingInfo.address.state}</h1>
+                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Ordered Items:</h1> {obj.orderItems.length}</h1>
+                            </div>
+                        </Link>
                     })
                     }</div>):(
                         <div className='font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>

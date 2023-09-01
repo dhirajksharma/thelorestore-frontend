@@ -46,7 +46,7 @@ const Explore=()=>{
     const generateOptions=()=>
     {
         return ['All','Arts and Entertainment','Biographies and Memoirs','Business and Investing','Comics','Computer and Technology','Cookery, Food and Wine','Fiction and Literature','Health, Mind and Body','Religion and Spirituality'].map( genre => (
-            <button className="block font-serif text-left font-light mb-3 w-fit" onClick={handleGenre}>{genre}</button>
+            <button className="hover:bg-gray-100 block font-serif text-left font-light mb-2 px-2 py-1 rounded-md max-w-[250px]" onClick={handleGenre}>{genre}</button>
         ));
     }
     const loadRef=useRef(loading);
@@ -81,7 +81,7 @@ const Explore=()=>{
             ):(
             <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Browse Genres</h1>                
+                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-yellow-400 w-1/3 pb-1 col-start-1 col-end-3">Browse Genres</h1>                
                 
                 <div className="hidden sm:flex flex-col pl-1">
                     {generateOptions()}

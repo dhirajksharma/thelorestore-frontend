@@ -93,7 +93,9 @@ const Shop=()=>{
                     setSort({year:0,ratings:0,maxprice:0})
                     setColorbtn(0);
                 }
-            return;
+                return;
+            default:
+                return;
         }
     }
 
@@ -138,7 +140,7 @@ const Shop=()=>{
             ):(
             <div className="sm:grid sm:grid-cols-[1fr_2fr] grid-rows-[min-content_auto_min-content] gap-2 h-[90vh]">
 
-                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Checkout Store</h1>
+                <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-yellow-400 w-1/3 pb-1 col-start-1 col-end-3">Checkout Store</h1>
                     <div className="flex flex-col pl-1 items-center sm:items-start">
                         <div id='filterfix' className="flex flex-row justify-center sm:justify-start items-center">
                             <Search/>
@@ -165,17 +167,17 @@ const Shop=()=>{
 
                         <div className="hidden sm:block">
                             <h1 className="border-b border-accent w-1/2 mt-5">Sort</h1>
-                                {colorbtn!==1 && <button id='sortbtn1' className="block m-1 border-2 border-secondary-button p-1 rounded-sm mt-4 hover:bg-secondary-button" onClick={()=>handleSortToggle(1)}>Price: Low to High</button>}
-                                {colorbtn===1 && <button id='sortbtn1' className="bg-primary-button block m-1 px-2 py-1 rounded-sm mt-4" onClick={()=>handleSortToggle(1)}>Price: Low to High</button>}
+                                {colorbtn!==1 && <button id='sortbtn1' className="block m-1 w-full border-2 p-1 rounded-md mt-4 hover:bg-gray-100" onClick={()=>handleSortToggle(1)}>Price: Low to High</button>}
+                                {colorbtn===1 && <button id='sortbtn1' className="bg-yellow-400 border-2 border-yellow-400 block w-full m-1 p-1 rounded-md mt-4" onClick={()=>handleSortToggle(1)}>Price: Low to High</button>}
                                 
-                                {colorbtn!==2 && <button id='sortbtn2' className="block m-1 border-2 border-secondary-button p-1 rounded-sm hover:bg-secondary-button" onClick={()=>handleSortToggle(2)}>Price: High to Low</button>}
-                                {colorbtn===2 && <button id='sortbtn2' className="bg-primary-button block m-1 px-2 py-1 rounded-sm" onClick={()=>handleSortToggle(2)}>Price: High to Low</button>}
+                                {colorbtn!==2 && <button id='sortbtn2' className="block m-1 w-full border-2 p-1 rounded-md hover:bg-gray-100" onClick={()=>handleSortToggle(2)}>Price: High to Low</button>}
+                                {colorbtn===2 && <button id='sortbtn2' className="bg-yellow-400 border-2 border-yellow-400 block w-full m-1 p-1 rounded-md" onClick={()=>handleSortToggle(2)}>Price: High to Low</button>}
 
-                                {colorbtn!==3 && <button id='sortbtn3' className="block m-1 border-2 border-secondary-button p-1 rounded-sm hover:bg-secondary-button" onClick={()=>handleSortToggle(3)}>Newest Arrivals First</button>}
-                                {colorbtn===3 && <button id='sortbtn3' className="bg-primary-button block m-1 px-2 py-1 rounded-sm" onClick={()=>handleSortToggle(3)}>Newest Arrivals First</button>}
+                                {colorbtn!==3 && <button id='sortbtn3' className="block m-1 w-full border-2 p-1 rounded-md hover:bg-gray-100" onClick={()=>handleSortToggle(3)}>Newest Arrivals First</button>}
+                                {colorbtn===3 && <button id='sortbtn3' className="bg-yellow-400 border-2 border-yellow-400 block w-full m-1 p-1 rounded-md" onClick={()=>handleSortToggle(3)}>Newest Arrivals First</button>}
 
-                                {colorbtn!==4 && <button id='sortbtn4' className="block m-1 border-2 border-secondary-button p-1 rounded-sm hover:bg-secondary-button" onClick={()=>handleSortToggle(4)}>Most Rated Books First</button>}
-                                {colorbtn===4 && <button id='sortbtn4' className="bg-primary-button block m-1 px-2 py-1 rounded-sm" onClick={()=>handleSortToggle(4)}>Most Rated Books First</button>}
+                                {colorbtn!==4 && <button id='sortbtn4' className="block m-1 w-full border-2 p-1 rounded-md hover:bg-gray-100" onClick={()=>handleSortToggle(4)}>Most Rated Books First</button>}
+                                {colorbtn===4 && <button id='sortbtn4' className="bg-yellow-400 border-2 border-yellow-400 block w-full m-1 p-1 rounded-md" onClick={()=>handleSortToggle(4)}>Most Rated Books First</button>}
                         </div>               
 
                         <div id='tinysort' className="mt-5 mb-3 sm:hidden font-medium flex justify-between items-center mx-5">

@@ -9,7 +9,7 @@ const Checkoutsuccess=()=>{
     const {user}=useSelector(state=>state.user)
 
     useEffect(()=>{
-        if(user)
+        if(user && user.cart && user.cart.length)
             dispatch(addOrder(user.address, user.cart, user.phone))
     },[dispatch, user])
 

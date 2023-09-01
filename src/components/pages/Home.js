@@ -24,7 +24,7 @@ const Home=()=>{
 
                     <button
                     onClick={exploreHandler}
-                    className="border-[3px] bg-primary-button hover:bg-accent border-primary-button hover:border-accent rounded-sm font-medium px-8 py-2 mt-5 active:border-[1px]"
+                    className="bg-yellow-400 hover:bg-yellow-300 rounded-md font-medium px-8 py-3 mt-5"
                     >Explore</button>
                 </div>
                 

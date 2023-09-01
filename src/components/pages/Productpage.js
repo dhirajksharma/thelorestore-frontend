@@ -93,11 +93,11 @@ const Productpage=()=>{
         if (window.innerWidth<400 && str.length > 180) {
             return (str.substring(0, 180)+" ");
         }
-        else if (window.innerWidth<450 && str.length > 250) {
-            return (str.substring(0, 250)+" ");
+        else if (window.innerWidth<540 && str.length > 200) {
+            return (str.substring(0, 200)+" ");
         }
-        else if (window.innerWidth<500 && str.length > 300) {
-            return (str.substring(0, 300)+" ");
+        else if (window.innerWidth<640 && str.length > 400) {
+            return (str.substring(0, 400)+" ");
         }
         else {
             return str;
@@ -130,31 +130,31 @@ const Productpage=()=>{
         <div id="explore" className="mx:4 sm:mx-9 text-text">
         <Metadata title="The Lore Store | Book Details" nav={1}/>
         {loading ?(
-                        <Fragment>
-                        <Loader/>
-                        {traffcheck()}
-                        </Fragment>
+                <Fragment>
+                    <Loader/>
+                    {traffcheck()}
+                </Fragment>
             ):(
             <div>
         {product?(
             <Fragment>
             
-            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-accent w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
+            <h1 className="hidden sm:block text-2xl md:text-3xl lg:text-4xl font-serif mt-2 border-b-2 border-yellow-400 w-1/3 pb-1 col-start-1 col-end-3">Book Details</h1>
             <div id='prddiv' className="grid grid-cols-[auto_2fr] justify-items-center sm:ml-10 mx-2 mt-2">
             {product.image && product.image.map(obj =>{
-                return <img id="prdimg" alt="product" src={obj.url} className=" w-[30vw] sm:w-48 m-2 justify-self-end aspect-ratio-[0.69] self-center"></img>
+                return <img id="prdimg" alt="product" src={obj.url} className="w-[50vw] sm:w-48 sm:mr-4 sm:mt-9 sm:justify-self-end aspect-[3/4] self-start col-start-1 col-end-3 sm:col-end-2"></img>
             })
             }
                 <div className="self-start justify-self-start mt-1 ml-1">
-                    <h1 className="font-['Montserrat'] uppercase font-medium text-sm mt-1 text-text2">{product.genre}</h1>
+                    <h1 className="font-['Montserrat'] uppercase font-medium text-sm mt-1 text-slate-600">{product.genre}</h1>
                     <h1 className="font-['Roboto_Slab'] text-xl sm:text-2xl mt-1">{product.title}</h1>
                     <p className="font-serif text-text2">{product.author}</p>
                     {overlay?
                     <div id="infovrlay"
                         onClick={()=>{setOverlay(0)}}
-                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center"
+                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center bg-white bg-opacity-30 backdrop-blur-[10px]"
                         >
-                        <div className="bg-background z-10 w-[60vw] sm:w-[50vw] max-w-[450px] min-w-[300px] overflow-auto max-h-[80vh] rounded-sm p-4 shadow-md shadow-[rgba(0,0,0,.5)]">
+                        <div className="bg-white z-10 w-[60vw] sm:w-[50vw] max-w-[450px] min-w-[300px] overflow-auto max-h-[80vh] rounded-md sm:rounded-none p-4 shadow-md shadow-[rgba(0,0,0,.5)]">
                             <h1 className="font-serif text-xl">{product.title}</h1>
                             <h2 className="font-['Montserrat'] text-sm font-medium text-text2">{product.author}</h2>
                             <h2 className="font-['Montserrat'] text-sm font-medium text-text2">{product.isbn}</h2>
@@ -164,7 +164,7 @@ const Productpage=()=>{
                     </div>:null}
                     {product.description && <p className="font-serif">
                         {ellipsify(product.description)}
-                        {window.innerWidth<500?
+                        {window.innerWidth<640?
                             <button id="infovrlaybtn"
                             onClick={()=>{setOverlay(1)}}
                             className="font-medium italic border-b border-accent"
@@ -174,7 +174,7 @@ const Productpage=()=>{
                     <p className="font-sans font-medium">MRP: &#8377;{product.maxprice}</p>
                     <div className="hidden sm:block">
                         <p className="font-['Montserrat'] uppercase font-medium text-sm mt-3 mb-2 text-text2">Available Sellers</p>
-                        <div className="flex flex-row">
+                        <div className="flex flex-wrap">
                         {product.sellers && product.sellers.map(obj =>{
                             
                             return <div className="mx-3 font-serif flex flex-col items-center justify-end max-w-[200px]">
@@ -185,7 +185,7 @@ const Productpage=()=>{
                                     <h1 className="inline text-lg">1</h1>
                                     <button className="ml-2" onClick={(e)=>{increaseQuantity(e,obj.quantity)}}>+</button>
                                 </h1>
-                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-primary-button bg-primary-button px-2 py-2 mt-2 hover:bg-accent rounded-sm">Add to Cart</button>
+                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-yellow-400 bg-yellow-400 px-2 py-1 mt-2 hover:bg-yellow-300 hover:border-yellow-300 rounded-md">Add to Cart</button>
                             </div>
                         })}
                         </div>
@@ -205,7 +205,7 @@ const Productpage=()=>{
                                     <h1 className="inline text-lg">1</h1>
                                     <button className="ml-2" onClick={(e)=>{increaseQuantity(e,obj.quantity)}}>+</button>
                                 </h1>
-                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-primary-button px-2 py-2 mt-2 hover:bg-accent">Add to Cart</button>
+                                <button onClick={(e)=>{addToCartHandler(obj, e)}} className="border-2 border-yellow-400 bg-yellow-400 px-2 py-1 mt-2 hover:bg-yellow-300 hover:border-yellow-300 rounded-md">Add to Cart</button>
                             </div>
                         })}
                         </div>
@@ -219,11 +219,11 @@ const Productpage=()=>{
                     {addReview?
                     <div id="infovrlay"
                         onClick={()=>{setAddReview(addReview=>addReview^1)}}
-                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center"
+                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center bg-white bg-opacity-30 backdrop-blur-[10px]"
                         >
                         <form
                             onSubmit={addReviewHandler}
-                            className="font-serif flex flex-col items-center p-5 rounded-sm w-fit mb-2 bg-background shadow-md shadow-[rgba(0,0,0,.5)]"
+                            className="font-serif flex flex-col items-center p-5 rounded-md w-fit mb-2 bg-white shadow-md shadow-[rgba(0,0,0,.5)]"
                             onClick={(e)=>{e.stopPropagation()}}
                         >
                         <label>Rating:
@@ -244,17 +244,17 @@ const Productpage=()=>{
                         placeholder="Comment"
                         value={review.comment}
                         onChange={(e)=>setReview(review=>({...review, comment: e.target.value}))}
-                        className="block border-x border-y border-accent max-w-[280px] mb-4"
-                        rows={4}
+                        className="block border-x border-y border-accent max-w-[280px] sm:max-w-none mb-4"
+                        rows={10}
                         cols={50}
                         ></textarea>
-                        <button type='submit' className="p-2 bg-primary-button rounded-sm">Add Review</button>
+                        <button type='submit' className="p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md">Add Review</button>
                         </form>
                     </div>:null}
                     
-                    <div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2">
                         {product.reviews && product.reviews.map(review =>(
-                            <div className="flex flex-col justify-evenly border border-accent shadow-sm shadow-text rounded-sm p-2 w-[90vw] sm:w-[80vw] mb-5 mr-1">
+                            <div className="border shadow-md rounded-md p-2 mb-5 mx-4">
                                 <h2 className="font-['Montserrat'] font-medium flex flex-row justify-between">
                                     {review.name}: &#11088; {review.rating}
                                     {user && (user._id===review.userId || user.role==="seller") && <button
