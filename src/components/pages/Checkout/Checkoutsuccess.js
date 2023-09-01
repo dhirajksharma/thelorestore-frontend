@@ -1,7 +1,7 @@
 import {Fragment, React, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrder } from '../../actions/userAction';
-import Metadata from "../elements/Metadata";
+import { addOrder } from '../../../actions/userAction';
+import Metadata from "../../elements/Metadata";
 
 const Checkoutsuccess=()=>{
     

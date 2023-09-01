@@ -1,10 +1,10 @@
 import {React, useEffect, useState,useRef, Fragment, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrors, clearMsg, forgotPassword } from '../../actions/userAction';
-import Loader from '../elements/Loader';
+import { clearErrors, clearMsg, forgotPassword } from '../../../actions/userAction';
+import Loader from '../../elements/Loader';
 import {toast} from 'react-toastify';
-import Metadata from "../elements/Metadata";
-import NavContext from '../elements/NavContext';
+import Metadata from "../../elements/Metadata";
+import NavContext from '../../elements/NavContext';
 const Forgotpassword=()=>{
     const dispatch=useDispatch();
     const [forgotPassEmail, setForgotPassEmail]=useState("");

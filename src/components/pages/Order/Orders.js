@@ -1,12 +1,12 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { clearDelMsg, clearErrors, deleteOrderDetails, getOrderDetails } from '../../actions/orderAction';
+import { clearDelMsg, clearErrors, deleteOrderDetails, getOrderDetails } from '../../../actions/orderAction';
 import {toast} from 'react-toastify'
-import Notfound from '../elements/Notfound';
-import Loader from '../elements/Loader';
-import Metadata from "../elements/Metadata";
-import NavContext from '../elements/NavContext';
+import Notfound from '../../elements/Notfound';
+import Loader from '../../elements/Loader';
+import Metadata from "../../elements/Metadata";
+import NavContext from '../../elements/NavContext';
 
 const Order=()=>{
     const navigate=useNavigate();

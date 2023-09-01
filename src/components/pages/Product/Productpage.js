@@ -1,15 +1,15 @@
 import React, { Fragment, useContext, useRef, useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { deleteReview, getProductDetails, reviewProduct } from "../../actions/productAction";
+import { deleteReview, getProductDetails, reviewProduct } from "../../../actions/productAction";
 import {useSelector, useDispatch} from 'react-redux';
-import Loader from "../elements/Loader";
-import { addItemsToCart } from "../../actions/productAction";
+import Loader from "../../elements/Loader";
+import { addItemsToCart } from "../../../actions/productAction";
 import { toast } from "react-toastify";
-import { clearCartMsg } from "../../actions/userAction";
-import Notfound from '../elements/Notfound';
-import Metadata from "../elements/Metadata";
-import NavContext from "../elements/NavContext";
+import { clearCartMsg } from "../../../actions/userAction";
+import Notfound from '../../elements/Notfound';
+import Metadata from "../../elements/Metadata";
+import NavContext from "../../elements/NavContext";
 const Productpage=()=>{
     const dispatch=useDispatch();
     const {id}=useParams();

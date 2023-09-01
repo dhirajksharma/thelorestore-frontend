@@ -1,5 +1,5 @@
 import {Fragment, React} from 'react';
-import Metadata from "../elements/Metadata";
+import Metadata from "../../elements/Metadata";
 
 const Checkoutfail=()=>{
     return (

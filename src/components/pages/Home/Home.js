@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import homeimg from '../../res/6737457.jpg';
-import NavContext from "../elements/NavContext";
-import Metadata from "../elements/Metadata";
+import homeimg from '../../../res/6737457.jpg';
+import NavContext from "../../elements/NavContext";
+import Metadata from "../../elements/Metadata";
 
 const Home=()=>{
     const navigate=useNavigate();

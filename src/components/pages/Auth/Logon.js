@@ -1,11 +1,11 @@
-import Loader from "../elements/Loader";
+import Loader from "../../elements/Loader";
 import { React, Fragment, useState, useEffect, useRef, useContext } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { login, register, clearErrors } from "../../actions/userAction";
+import { login, register, clearErrors } from "../../../actions/userAction";
 import {toast} from 'react-toastify';
-import Metadata from "../elements/Metadata";
-import NavContext from "../elements/NavContext";
+import Metadata from "../../elements/Metadata";
+import NavContext from "../../elements/NavContext";
 
 const Logon = ()=>{
     

@@ -1,14 +1,14 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link} from 'react-router-dom';
-import { addProduct, clearErrors, clearPrdSuccess, getSellerProducts, updateProductDetails} from '../../actions/dashboardAction';
-import Loader from '../elements/Loader';
-import TinyDropdown from '../elements/TinyDropdown';
+import { addProduct, clearErrors, clearPrdSuccess, getSellerProducts, updateProductDetails} from '../../../actions/dashboardAction';
+import Loader from '../../elements/Loader';
+import TinyDropdown from '../../elements/TinyDropdown';
 import {toast} from 'react-toastify';
-import Notfound from '../elements/Notfound';
+import Notfound from '../../elements/Notfound';
 import './Dashboard.css';
-import Metadata from "../elements/Metadata";
-import NavContext from '../elements/NavContext';
+import Metadata from "../../elements/Metadata";
+import NavContext from '../../elements/NavContext';
 
 const Dashboard=()=>{
 

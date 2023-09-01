@@ -1,15 +1,15 @@
 import React, { Fragment, useContext, useRef } from "react";
 import { useEffect, useState } from "react";
-import Product from "../elements/Product";
-import { getProduct } from "../../actions/productAction";
+import Product from "../../elements/Product";
+import { getProduct } from "../../../actions/productAction";
 import {useSelector, useDispatch} from 'react-redux';
 import Pagination from 'react-js-pagination';
-import Loader from "../elements/Loader";
-import TinyDropdown from '../elements/TinyDropdown';
+import Loader from "../../elements/Loader";
+import TinyDropdown from '../../elements/TinyDropdown';
 import './Explore.css';
-import Metadata from "../elements/Metadata";
+import Metadata from "../../elements/Metadata";
 import { toast } from "react-toastify";
-import NavContext from "../elements/NavContext";
+import NavContext from "../../elements/NavContext";
 const Explore=()=>{
     const dispatch=useDispatch();
     const {product, loading, productsCount, resultPerPage, filteredProductCount}=useSelector(state=>state.products)

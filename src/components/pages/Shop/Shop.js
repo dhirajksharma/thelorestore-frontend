@@ -1,19 +1,19 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from "react";
-import Product from '../elements/Product';
-import Loader from '../elements/Loader';
-import { getProduct } from "../../actions/productAction";
+import Product from '../../elements/Product';
+import Loader from '../../elements/Loader';
+import { getProduct } from "../../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
-import Search from "../elements/Search";
+import Search from "../../elements/Search";
 import { useParams } from "react-router-dom";
 import Pagination from 'react-js-pagination';
 import Slider from 'react-input-slider';
-import TinyDropdown from '../elements/TinyDropdown';
+import TinyDropdown from '../../elements/TinyDropdown';
 import './Shop.css';
 import $ from 'jquery';
-import controller from '../../res/settings.png'
-import Metadata from "../elements/Metadata";
+import controller from '../../../res/settings.png'
+import Metadata from "../../elements/Metadata";
 import { toast } from "react-toastify";
-import NavContext from "../elements/NavContext";
+import NavContext from "../../elements/NavContext";
 
 const Shop=()=>{
     const dispatch=useDispatch();

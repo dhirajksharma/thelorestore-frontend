@@ -1,14 +1,14 @@
 import {Fragment, React, useEffect, useState, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getSellerOrders, getSellerProducts } from '../../actions/dashboardAction';
-import { loadUser, loadUserOrders, logout, updatePass, updateProfile, clearErrors, clearSuccess} from '../../actions/userAction';
-import Loader from '../elements/Loader';
+import { getSellerOrders, getSellerProducts } from '../../../actions/dashboardAction';
+import { loadUser, loadUserOrders, logout, updatePass, updateProfile, clearErrors, clearSuccess} from '../../../actions/userAction';
+import Loader from '../../elements/Loader';
 import {toast} from 'react-toastify';
-import TinyDropdown from '../elements/TinyDropdown';
+import TinyDropdown from '../../elements/TinyDropdown';
 import './User.css';
-import NavContext from "../elements/NavContext";
-import Metadata from "../elements/Metadata";
+import NavContext from "../../elements/NavContext";
+import Metadata from "../../elements/Metadata";
 
 const User=()=>{
     const navigate=useNavigate();
