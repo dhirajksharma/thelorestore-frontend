@@ -148,7 +148,7 @@ class TinyDropdown extends Component {
           {this.getSelectedOptionLabel()}
         </span>
         <img src={arrow}
-          className={isPanelOpen?'rotate-180 inline':' inline'}
+          className={`${isPanelOpen?'rotate-180 ':' '} w-4 inline`}
         >
         </img>
       </div>

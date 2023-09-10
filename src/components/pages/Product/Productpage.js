@@ -152,7 +152,7 @@ const Productpage=()=>{
                     {overlay?
                     <div id="infovrlay"
                         onClick={()=>{setOverlay(0)}}
-                        className="fixed overflow-auto z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center bg-white bg-opacity-30 backdrop-blur-[10px]"
+                        className="fixed overflow-x-hidden z-20 top-0 left-0 right-0 bottom-0 grid items-center justify-center bg-white bg-opacity-30 backdrop-blur-[10px]"
                         >
                         <div className="bg-white z-10 w-[60vw] sm:w-[50vw] max-w-[450px] min-w-[300px] overflow-auto max-h-[80vh] rounded-md sm:rounded-none p-4 shadow-md shadow-[rgba(0,0,0,.5)]">
                             <h1 className="font-serif text-xl">{product.title}</h1>
