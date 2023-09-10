@@ -10,7 +10,7 @@ import Slider from 'react-input-slider';
 import TinyDropdown from '../../elements/TinyDropdown';
 import './Shop.css';
 import $ from 'jquery';
-import controller from '../../../res/settings.png'
+import controller from '../../../res/setting_icon.png'
 import Metadata from "../../elements/Metadata";
 import { toast } from "react-toastify";
 import NavContext from "../../elements/NavContext";
@@ -144,7 +144,7 @@ const Shop=()=>{
                     <div className="flex flex-col pl-1 items-center sm:items-start">
                         <div id='filterfix' className="flex flex-row justify-center sm:justify-start items-center">
                             <Search/>
-                            <img src={controller} alt="filters" className="cursor-pointer sm:hidden ml-2 h-5 mt-4" onClick={togglefilterdiv}/>
+                            <img src={controller} alt="filters" className="w-[17px] sm:hidden ml-2 mt-4 invert" onClick={togglefilterdiv}/>
                         </div>
 
                         <div id='filterdiv' className="font-serif mt-7 hidden sm:flex flex-col items-center sm:items-start w-fit sm:w-auto">

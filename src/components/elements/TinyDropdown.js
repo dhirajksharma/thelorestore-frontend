@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './TinyDropdown.css';
+import arrow from '../../res/arrow.png';
 
 class TinyDropdown extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class TinyDropdown extends Component {
     };
     this.parentDiv = React.createRef();
     this.button = React.createRef();
-    this.arrow = React.createRef();
+    //this.arrow = React.createRef();
   }
 
   initializeDefaults = () => {
@@ -24,14 +25,14 @@ class TinyDropdown extends Component {
       this.props.visibleOptions
     );
     // hack to set color of the button to the dropdown-toggle-arrow
-    this.arrow.current.style.setProperty(
-      'border-bottom-color',
-      this.button.current.style.color
-    );
-    this.arrow.current.style.setProperty(
-      'border-top-color',
-      this.button.current.style.color
-    );
+    // this.arrow.current.style.setProperty(
+    //   'border-bottom-color',
+    //   this.button.current.style.color
+    // );
+    // this.arrow.current.style.setProperty(
+    //   'border-top-color',
+    //   this.button.current.style.color
+    // );
   };
 
   componentWillReceiveProps(nextProps) {
@@ -146,7 +147,10 @@ class TinyDropdown extends Component {
         >
           {this.getSelectedOptionLabel()}
         </span>
-        <span className={arrowClass} ref={this.arrow} />
+        <img src={arrow}
+          className={isPanelOpen?'rotate-180 inline':' inline'}
+        >
+        </img>
       </div>
     );
   }

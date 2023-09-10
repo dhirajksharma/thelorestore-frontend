@@ -41,7 +41,7 @@ export default function Profile({user, logoutHandler}){
             </Fragment>}
             <button
             onClick={logoutHandler}
-            className='border-2 border-red-600 px-2 py-1 mb-6 mt-6 font-["Montserrat"] font-medium sm:hidden'>
+            className=' text-center tracking-wider mt-4 bg-red-600 rounded-md font-medium px-4 py-2 border-2 border-red-600 mb-6 font-["Montserrat"] text-white sm:hidden'>
             Logout</button>
             </Fragment>
     )
