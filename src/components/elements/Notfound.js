@@ -20,11 +20,11 @@ const Notfound=()=>{
 
                 <div>
                 <h1 className="font-mono text-2xl md:text-4xl">Nothing found here...</h1>
-                <p className="font-['Montserrat'] text-xl">Let's go back and explore some books instead,</p>
+                <p className="font-['Montserrat'] text-xl">Let's go back and explore some books instead</p>
 
                 <button
                     onClick={exploreHandler}
-                    className="border-[3px] border-slate-700 font-medium px-8 py-2 mt-5 hover:bg-gray-100 active:bg-gray-200 active:border-gray-300"
+                    className="bg-slate-600 hover:bg-slate-500 rounded-md font-medium px-8 py-3 mt-5 text-white"
                     >Explore</button>
                 </div>
 

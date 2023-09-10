@@ -6,8 +6,12 @@ import Loader from '../../elements/Loader';
 import {toast} from 'react-toastify';
 import Metadata from "../../elements/Metadata";
 import NavContext from '../../elements/NavContext';
+import fixPass from '../../../res/4256771.jpg';
+import passFixed from '../../../res/4256772.png';
 
 const Resetpassword=()=>{
+    
+    const fixRef=useRef();
     const dispatch=useDispatch();
     const {token}=useParams();
     const navigate=useNavigate();
@@ -25,8 +29,11 @@ const Resetpassword=()=>{
             dispatch(clearErrors());
         }
         if(success){
+            fixRef.current.src=passFixed;
             toast.success("Password Reset Successful");
-            navigate('/login');
+            setTimeout(function(){
+                navigate('/login');
+            },1500)
         }
 
     },[dispatch, error, success]);
@@ -53,7 +60,7 @@ const Resetpassword=()=>{
     }
 
     return (
-        <div className='mx-4 sm:mx-9'>
+        <div className='mx-4 sm:mx-9 h-[90vh] flex flex-col md:flex-row justify-center md:justify-evenly items-center'>
             <Metadata title="The Lore Store | Reset Password" nav={3}/>
             {loading ?(
                         <Fragment>
@@ -61,7 +68,8 @@ const Resetpassword=()=>{
                         {traffcheck()}
                         </Fragment>
             ):(
-                <div className='grid items-center justify-items-center h-[90vh]'>
+                <Fragment>
+                <img src={fixPass} ref={fixRef} className={window.innerHeight>window.innerWidth?'w-full ':'h-3/4 object-contain'}></img>                    
                 <form onSubmit={handleResetPass}
                     className="font-serif">
                         <h1 className='font-["Montserrat"] font-medium text-center mb-4 text-lg'>Update Your Password Now</h1>
@@ -79,9 +87,9 @@ const Resetpassword=()=>{
                             onChange={(e)=>setPassDetails(passdetails=>({...passdetails, confirmpassword: e.target.value}))}
                             className="block text-center mb-4 tracking-wider border-b w-full"
                         />
-                        <button type='submit' className="tracking-wider mt-4 border-2 border-gray-500 hover:bg-gray-100 active:bg-gray-200 active:border-gray-300 w-full">Reset Your Password</button>
+                        <button type='submit' className="tracking-wider mt-4 border-2 text-center bg-yellow-400 hover:bg-yellow-300 rounded-md font-medium px-4 py-2 w-full">Reset Your Password</button>
                     </form>
-                </div>
+                </Fragment>
             )}
         </div>
     )

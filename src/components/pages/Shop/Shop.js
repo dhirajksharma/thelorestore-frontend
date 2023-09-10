@@ -39,7 +39,7 @@ const Shop=()=>{
 
     useEffect(()=>{
         dispatch(getProduct(keyword, currentPage, [0,state.x], rating.x, sort));
-    },[dispatch,keyword, currentPage, dragEnd, sort])
+    },[dispatch,keyword, currentPage, dragEnd, sort,rating.x, state.x])
 
     const sortHandler=(index)=>{
         setOptionSelected(index);
@@ -219,24 +219,24 @@ const Shop=()=>{
                         ))}
                     </div>
                     {resultPerPage < filteredProductCount && (
-                            <div className='flex flex-row justify-center text-gray-500 col-start-2'>
-                                <Pagination
-                                    activePage={currentPage}
-                                    itemsCountPerPage={resultPerPage}
-                                    totalItemsCount={productsCount}
-                                    onChange={setCurrentPageNo}
-                                    nextPageText='Next'
-                                    prevPageText='Prev'
-                                    firstPageText='1st'
-                                    lastPageText='Last'
-                                    itemClass='mx-2'
-                                    linkClass=''
-                                    activeLinkClass="text-black font-bold"
-                                    innerClass="flex flex-row"
-                                    activeClass=""
-                                    />
-                            </div>
-                        )}
+                        <div className='flex flex-row justify-center text-gray-500 col-start-2'>
+                            <Pagination
+                                activePage={currentPage}
+                                itemsCountPerPage={resultPerPage}
+                                totalItemsCount={productsCount}
+                                onChange={setCurrentPageNo}
+                                nextPageText='Next'
+                                prevPageText='Prev'
+                                firstPageText='1st'
+                                lastPageText='Last'
+                                itemClass='mx-2'
+                                linkClass=''
+                                activeLinkClass="text-black font-bold"
+                                innerClass="flex flex-row"
+                                activeClass=""
+                                />
+                        </div>
+                    )}
                     </div>
             )}
         </div>

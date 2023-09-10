@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link} from 'react-router-dom';
 import { addProduct, clearErrors, clearPrdSuccess, getSellerProducts, updateProductDetails} from '../../../actions/dashboardAction';
 import Loader from '../../elements/Loader';
 import TinyDropdown from '../../elements/TinyDropdown';
@@ -9,9 +8,15 @@ import Notfound from '../../elements/Notfound';
 import './Dashboard.css';
 import Metadata from "../../elements/Metadata";
 import NavContext from '../../elements/NavContext';
+import SellerStats from './SellerStats';
+import SellerOrders from './SellerOrders';
+import SellerUpdateProduct from './SellerUpdateProduct';
+import SellerNewProduct from './SellerNewProduct';
+import SellerProducts from './SellerProducts';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard=()=>{
-
+    const navigate=useNavigate();
     const dispatch=useDispatch();
     const {products, orders, loading, error, productSuccess, productsLoading, ordersLoading}=useSelector(state=> state.dashboard)
     const {user}=useSelector(state=>state.user);
@@ -117,14 +122,6 @@ const Dashboard=()=>{
         dispatch(updateProductDetails(updateBookDetails));
     }
 
-    const generateOptions=()=>
-    {
-        
-        return ['Arts and Entertainment','Biographies and Memoirs','Business and Investing','Comics','Computer and Technology','Cookery, Food and Wine','Fiction and Literature','Health, Mind and Body','Religion and Spirituality'].map( genre => (
-            <option value={genre}>{genre}</option>
-        ));
-    }
-    
     const loadRef=useRef(loading);
     loadRef.current=loading;
     const serverRef=useRef(serverError);
@@ -197,267 +194,19 @@ const Dashboard=()=>{
                 <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Update a Product</button>
                 <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Orders</button>
                 <button onClick={handleToggle} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Statistics</button>
+                <button onClick={()=>navigate('/me')} className='hover:bg-gray-100 block font-serif text-left font-light mb-1 px-2 py-1 rounded-md max-w-[250px] w-full'>Back to Profile</button>
             </div>
     
             <div className="sm:w-[75vw]">
-                {option==='My Products' && products && (<Fragment>
-                    {products.length>0?(
-                    <div className='sm:grid sm:grid-cols-2 lg:grid-cols-3'>
-                    {products.map(obj=>{
-                        return <Link to={`/books/${obj._id}`}>
-                        <div className='grid sm:block grid-cols-[auto_1fr] grid-rows-1 items-center justify-items-start mb-4'>
-                            <img src={obj.image[0].url} alt="product" className='h-[150px] aspect-[3/4] rounded-md'/>
-                            <div className='font-serif pt-2 ml-2 sm:ml-0'>
-                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Book:</h1> {obj.title.substring(0,30)}</h1>
-                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>ISBN:</h1> {obj.isbn}</h1>
-                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Quantity:</h1> {obj.sellers[0].quantity}</h1>
-                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>MRP:</h1> &#8377;{obj.maxprice}</h1>
-                                <h1 className='-mt-1'><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>SP:</h1> &#8377;{obj.sellers[0].sellingPrice}</h1>
-                            </div>
-                        </div>
-                        </Link>})
-                    }</div>):(
-                        <div className='font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>
-                            Your haven't added any books to sell, add them to see here
-                        </div>
-                    )}
-                </Fragment>)}
+                {option==='My Products' && products && <SellerProducts products={products} /> }
 
-                {option==='Add New Product' && (<Fragment>
-                    <form onSubmit={AddBookHandler}>
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-lg mb-2 -ml-1">Book Info</h3>
-                        <select
-                            required
-                            className="-ml-1 block font-['Montserrat'] font-medium text-gray-600 uppercase text-sm mb-2"
-                            value={newBookDetails.genre}
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, genre: e.target.value}))}>
-                            <option value="">SELECT A GENRE</option>
-                            {generateOptions()}
-                        </select>
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Title</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Title"
-                            value={newBookDetails.title}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, title: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Author</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Author"
-                            value={newBookDetails.author}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, author: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Description</h3>
-                        <textarea
-                        required
-                        placeholder="Write a description for the book..."
-                        value={newBookDetails.description}
-                        onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, description: e.target.value}))}
-                        className="block font-serif border-x border-y min-w-[250px] w-[30vw]"
-                        rows={4}
-                        ></textarea>
-                        
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-lg mb-2 mt-5 -ml-1">Publishing Info</h3>
-                    
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">ISBN Number</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book ISBN"
-                            value={newBookDetails.isbn}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, isbn: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Publisher Name</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Publisher"
-                            value={newBookDetails.publisher}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, publisher: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Publishing Year</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Publishing Year"
-                            value={newBookDetails.year}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, year: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Maximum Retail Price</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book MRP"
-                            value={newBookDetails.maxprice}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, maxprice: e.target.value}))}
-                        />
-                            
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-lg mb-2 mt-5 -ml-1">Seller Info</h3>
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Quantity</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Quantity"
-                            value={newBookDetails.currentSeller.quantity}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, currentSeller:{...newBookDetails.currentSeller,quantity: e.target.value}}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Your Selling Price</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Selling Price"
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            value={newBookDetails.currentSeller.sellingPrice}
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, currentSeller:{...newBookDetails.currentSeller,sellingPrice: e.target.value}}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Cover Image Link</h3>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Book Cover Image Link"
-                            value={newBookDetails.image}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, image: e.target.value}))}
-                        />
-                        <button type='submit' className='p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md block mt-4 mb-3 font-["Montserrat"] font-medium'>Add Book</button>
-                    </form>
-                </Fragment>)}
+                {option==='Add New Product' && <SellerNewProduct AddBookHandler={AddBookHandler} newBookDetails={newBookDetails} setNewBookDetails={setNewBookDetails} /> }
 
-                {option==='Update a Product' && (<Fragment>
-                    <form onSubmit={UpdateBookHandler}>
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase -ml-1">Enter ISBN Number to Update Book</h3>
-                        <input
-                            type="text"
-                            placeholder="ISBN Number"
-                            value={updateBookDetails.isbn}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b -ml-1"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, isbn: e.target.value}))}
-                        />
-                        <h1 className="font-['Montserrat'] -ml-1 mt-2 text-sm"><b>*Only fill in the fields that you want to update</b></h1>
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-lg mb-2 -ml-1">Book Info</h3>
-                        <select
-                            className="-ml-1 block font-['Montserrat'] font-medium text-gray-600 uppercase text-sm mb-2"
-                            value={updateBookDetails.genre}
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, genre: e.target.value}))}>
-                            {generateOptions()}
-                            <option value="">SELECT A GENRE</option>
-                        </select>
-                    <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Title</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Title"
-                            value={updateBookDetails.title}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setNewBookDetails(newBookDetails=>({...newBookDetails, title: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Author</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Author"
-                            value={updateBookDetails.author}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, author: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Description</h3>
-                        <textarea
-                        placeholder="Write a description for the book..."
-                        value={updateBookDetails.description}
-                        onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, description: e.target.value}))}
-                        className="block font-serif border-x border-y min-w-[250px] w-[30vw]"
-                        rows={4}
-                        ></textarea>
+                {option==='Update a Product' && <SellerUpdateProduct UpdateBookHandler={UpdateBookHandler} updateBookDetails={updateBookDetails} setUpdateBookDetails={setUpdateBookDetails} /> }
 
-                        
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-lg mb-2 mt-5 -ml-1">Publishing Info</h3>
-                    
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Publisher Name</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Publisher"
-                            value={updateBookDetails.publisher}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, publisher: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Publishing Year</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Publishing Year"
-                            value={updateBookDetails.year}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, year: e.target.value}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Maximum Retail Price</h3>
-                        <input
-                            type="text"
-                            placeholder="Book MRP"
-                            value={updateBookDetails.maxprice}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, maxprice: e.target.value}))}
-                        />
-                            
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-lg mb-2 mt-5 -ml-1">Seller Info</h3>
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Quantity</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Quantity"
-                            value={updateBookDetails.currentSeller.quantity}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, currentSeller:{...newBookDetails.currentSeller,quantity: e.target.value}}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Your Selling Price</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Selling Price"
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            value={updateBookDetails.currentSeller.sellingPrice}
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, currentSeller:{...newBookDetails.currentSeller,sellingPrice: e.target.value}}))}
-                        />
-                        <h3 className="font-['Montserrat'] font-medium text-gray-600 uppercase text-sm">Cover Image Link</h3>
-                        <input
-                            type="text"
-                            placeholder="Book Cover Image Link"
-                            value={updateBookDetails.image}
-                            className="mb-2 font-serif tracking-wider text-slate-900 min-w-[250px] w-[30vw] border-b"
-                            onChange={(e)=>setUpdateBookDetails(updateBookDetails=>({...updateBookDetails, image: e.target.value}))}
-                        />
-                        <button type='submit' className='p-2 bg-yellow-400 hover:bg-yellow-300 rounded-md block mt-4 mb-3 font-["Montserrat"] font-medium'>Update Book</button>
-                    </form>
-                </Fragment>)}
+                {option==='Orders' && orders && <SellerOrders orders={orders} /> }
 
-                {option==='Orders' && orders && (<Fragment>
-                    {orders.length>0?(
-                    <div className='sm:grid sm:grid-cols-2 md:grid-cols-3'>
-                    {orders.map(obj=>{                        
-                        return <Link to={`/orders/${obj._id}`}>
-                            <div className='m-3 border-x border-y p-4 shadow-sm rounded-md max-w-[300px]'>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Order ID:</h1> {obj._id.substring(0,15)}</h1>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Location:</h1> {obj.shippingInfo.address.city+', '+obj.shippingInfo.address.state}</h1>
-                                <h1><h1 className='font-["Montserrat"] font-medium inline text-sm tracking-wide'>Ordered Items:</h1> {obj.orderItems.length}</h1>
-                            </div>
-                        </Link>
-                    })
-                    }</div>):(
-                        <div className='font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>
-                            Your haven't recieved any orders yet . . .
-                        </div>
-                    )}
-                </Fragment>)}
-
-                {option==='Statistics' && (<Fragment>
-                    <div className='font-["Montserrat"] text-lg font-medium pt-4 grid h-full content-center justify-center text-center'>
-                            Your sales stats will show up here soon . . .
-                        </div>
-                </Fragment>)}
+                {option==='Statistics' && <SellerStats/> }
             </div>
             </div>
             </Fragment>

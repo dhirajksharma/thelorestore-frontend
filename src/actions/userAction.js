@@ -228,13 +228,14 @@ export const resetPass=(details,token)=> async (dispatch)=>{
     }
 }
 
-export const addOrder=(address,cart,phone)=>async(dispatch)=>{
+export const addOrder=(address,cart,phone,id)=>async(dispatch)=>{
     let itemsPrice=0,shippingPrice=100,totalPrice=0;
     for (let index = 0; index < cart.length; index++) {
         itemsPrice+=(cart[index].price)*(cart[index].quantity)
     }
     totalPrice=itemsPrice+shippingPrice;
     const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/order/new`,{
+        sessioID:id,
         shippingInfo:{
             address:{
                 localaddress:address.localaddress,

@@ -138,7 +138,7 @@ const Order=()=>{
                         }</div>
                     </div>
                 </div>
-                {user._id===order.user._id && order.orderStatus==="Not Delivered" && <button
+                {order.orderStatus==="Not Delivered" && <button
                 className='border-[3px] border-red-700 bg-red-700 rounded-md py-1 px-2 mb-6 mt-6 font-["Montserrat"] font-medium text-white hover:bg-red-500 hover:border-red-500'
                 onClick={deleteOrderHandler}
                 >Delete Order</button>}
